@@ -1,0 +1,7 @@
+#配置服务中心
+spring:
+  application:
+    name: payment-service
+#配置端口
+server:
+  port: 8300

@@ -1,0 +1,10 @@
+/Users/like/data/code/shell-mall/shell-mall/mall-common/src/main/java/com/huatech/mall/common/utils/BeanValidator.java
+/Users/like/data/code/shell-mall/shell-mall/mall-common/src/main/java/com/huatech/mall/common/response/ResponseResult.java
+/Users/like/data/code/shell-mall/shell-mall/mall-common/src/main/java/com/huatech/mall/common/mapper/IBaseMapper.java
+/Users/like/data/code/shell-mall/shell-mall/mall-common/src/main/java/com/huatech/mall/common/response/ExceptionResponseResult.java
+/Users/like/data/code/shell-mall/shell-mall/mall-common/src/main/java/com/huatech/mall/common/constants/ApiBaseConstants.java
+/Users/like/data/code/shell-mall/shell-mall/mall-common/src/main/java/com/huatech/mall/common/enums/ApiBaseErrorCore.java
+/Users/like/data/code/shell-mall/shell-mall/mall-common/src/main/java/com/huatech/mall/common/service/impl/BaseServiceImpl.java
+/Users/like/data/code/shell-mall/shell-mall/mall-common/src/main/java/com/huatech/mall/common/handler/ExceptionHandlerAdvice.java
+/Users/like/data/code/shell-mall/shell-mall/mall-common/src/main/java/com/huatech/mall/common/service/IBaseService.java
+/Users/like/data/code/shell-mall/shell-mall/mall-common/src/main/java/com/huatech/mall/common/exception/ExceptionCustomer.java

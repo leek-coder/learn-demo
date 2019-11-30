@@ -1,0 +1,7 @@
+#配置应用名称
+spring:
+  application:
+    name: user-service
+#配置服务端口
+server:
+  port: 8100

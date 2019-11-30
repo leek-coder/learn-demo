@@ -1,0 +1,10 @@
+com/huatech/mall/common/utils/BeanValidator.class
+com/huatech/mall/common/service/IBaseService.class
+com/huatech/mall/common/handler/ExceptionHandlerAdvice.class
+com/huatech/mall/common/mapper/IBaseMapper.class
+com/huatech/mall/common/constants/ApiBaseConstants.class
+com/huatech/mall/common/response/ResponseResult.class
+com/huatech/mall/common/service/impl/BaseServiceImpl.class
+com/huatech/mall/common/enums/ApiBaseErrorCore.class
+com/huatech/mall/common/response/ExceptionResponseResult.class
+com/huatech/mall/common/exception/ExceptionCustomer.class
