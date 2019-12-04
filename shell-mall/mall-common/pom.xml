@@ -18,6 +18,7 @@
 
      <dependencies>
 
+
          <dependency>
              <groupId>com.fasterxml.jackson.core</groupId>
              <artifactId>jackson-core</artifactId>
@@ -36,21 +37,26 @@
              <version>${jackson.version}</version>
          </dependency>
 
-<!--         <dependency>-->
-<!--             <groupId>org.springframework.boot</groupId>-->
-<!--             <artifactId>spring-boot-starter-data-redis</artifactId>-->
-<!--         </dependency>-->
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-data-redis</artifactId>
+         </dependency>
 
-<!--         <dependency>-->
-<!--             <groupId>io.lettuce</groupId>-->
-<!--             <artifactId>lettuce-core</artifactId>-->
-<!--             <version>5.0.2.RELEASE</version>-->
-<!--         </dependency>-->
-<!--         <dependency>-->
-<!--             <groupId>org.apache.commons</groupId>-->
-<!--             <artifactId>commons-pool2</artifactId>-->
-<!--             <version>${commons-pool2.version}</version>-->
-<!--         </dependency>-->
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-web</artifactId>
+         </dependency>
+
+         <dependency>
+             <groupId>io.lettuce</groupId>
+             <artifactId>lettuce-core</artifactId>
+             <version>5.0.2.RELEASE</version>
+         </dependency>
+         <dependency>
+             <groupId>org.apache.commons</groupId>
+             <artifactId>commons-pool2</artifactId>
+             <version>${commons-pool2.version}</version>
+         </dependency>
 
 
          <!--集成分页插件-->
@@ -67,6 +73,11 @@
              <version>5.1.46</version>
          </dependency>
 
+         <dependency>
+             <groupId>org.projectlombok</groupId>
+             <artifactId>lombok</artifactId>
+         </dependency>
+
 
          <!-- validator -->
          <dependency>
@@ -74,18 +85,6 @@
              <artifactId>validation-api</artifactId>
              <version>1.1.0.Final</version>
          </dependency>
-         <dependency>
-             <groupId>org.hibernate</groupId>
-             <artifactId>hibernate-validator</artifactId>
-             <version>5.2.4.Final</version>
-         </dependency>
-         <!--google 工具类guava-->
-         <dependency>
-             <groupId>com.google.guava</groupId>
-             <artifactId>guava</artifactId>
-             <version>18.0</version>
-         </dependency>
-
          <dependency>
              <groupId>org.apache.commons</groupId>
              <artifactId>commons-lang3</artifactId>

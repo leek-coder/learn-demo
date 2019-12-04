@@ -16,14 +16,14 @@ public interface IBaseMapper<T, ID> {
      * @param id
      * @return
      */
-    public abstract T selectByPrimaryKey(ID id);
+     T selectByPrimaryKey(ID id);
 
     /**
      * 查询所有
      *
      * @return
      */
-    public abstract List<T> findList(); //查询所有
+     List<T> findList(); //查询所有
 
     /**
      * 保存数据
@@ -45,16 +45,16 @@ public interface IBaseMapper<T, ID> {
     /**
      * 根据主键更新
      *
-     * @param id
+     * @param record
      * @return
      */
-    int updateByPrimaryKey(ID  id);
+    int updateByPrimaryKey(T  record);
 
     /**
      * 根据主键删除数据
-     *
      * @param id
+     * @return
      */
-    public abstract int deleteByPrimaryKey(ID id);
+    int deleteByPrimaryKey(ID id);
 
 }

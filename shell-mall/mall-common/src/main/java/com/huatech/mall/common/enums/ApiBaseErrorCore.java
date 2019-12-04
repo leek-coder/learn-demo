@@ -8,6 +8,10 @@ package com.huatech.mall.common.enums;
  **/
 public enum ApiBaseErrorCore {
     MISS_PARAM_ERROR("参数缺失", 5000),
+
+    USER_NOT_EXISTS("用户不存在", 1000),
+    USER_EXISTS("用户已存在", 1001),
+
     ;
 
 

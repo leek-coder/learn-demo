@@ -2,22 +2,29 @@ package com.huatech.mall.common.exception;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.huatech.mall.common.enums.ApiBaseErrorCore;
 
 /**
  * @Author leek
- * @Date 2018-06-14 下午5:43
+ * @Date 2019-06-14 下午5:43
  * @Version 1.0
  * @Description
  */
 @JsonIgnoreProperties(value = {"timestamp", "error", "status"})
 public class ExceptionCustomer extends RuntimeException {
 
-    //异常信息
+    /**
+     * 异常信息
+     */
     private String message;
-    //异常编码
+    /**
+     * 异常编码
+     */
     private Integer code = -1;
 
     private Integer errorCode;
+
+//    private ApiBaseErrorCore apiBaseErrorCore;
 
 
     @Override
@@ -51,6 +58,11 @@ public class ExceptionCustomer extends RuntimeException {
     }
 
 
+    public ExceptionCustomer(ApiBaseErrorCore apiBaseErrorCore) {
+        this.message = apiBaseErrorCore.getMessage();
+        this.errorCode = apiBaseErrorCore.getCode();
+    }
+
     public Integer getErrorCode() {
         return errorCode;
     }
@@ -58,4 +70,12 @@ public class ExceptionCustomer extends RuntimeException {
     public void setErrorCode(Integer errorCode) {
         this.errorCode = errorCode;
     }
+
+//    public ApiBaseErrorCore getApiBaseErrorCore() {
+//        return apiBaseErrorCore;
+//    }
+//
+//    public void setApiBaseErrorCore(ApiBaseErrorCore apiBaseErrorCore) {
+//        this.apiBaseErrorCore = apiBaseErrorCore;
+//    }
 }

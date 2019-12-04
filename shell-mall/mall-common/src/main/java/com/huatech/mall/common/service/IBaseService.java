@@ -64,9 +64,9 @@ public interface IBaseService<T, ID extends Serializable> {
     /**
      * 根据主键更新实体
      *
-     * @param id
+     * @param entity
      * @return
      */
-    int updateByPrimaryKey(ID id);
+    int updateByPrimaryKey(T entity);
 
 }

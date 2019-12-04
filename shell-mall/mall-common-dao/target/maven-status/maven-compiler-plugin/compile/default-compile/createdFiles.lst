@@ -1,0 +1,5 @@
+com/huatech/mall/entity/user/User.class
+com/huatech/mall/entity/address/Address.class
+com/huatech/mall/mapper/user/UserMapper.class
+com/huatech/mall/mapper/address/AddressMapper.class
+com/huatech/mall/param/user/UserParam.class

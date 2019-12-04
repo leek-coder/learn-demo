@@ -13,7 +13,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  **/
 @SpringBootApplication
 @EnableDiscoveryClient
-@MapperScan("com.huatech.mall.service.mapper.*")
+@MapperScan("com.huatech.mall.mapper.*")
 public class ProductServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProductServiceApplication.class,args);

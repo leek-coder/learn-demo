@@ -1,4 +1,38 @@
 #配置应用名称
 spring:
   application:
-    name: zuul-service
+    name: zuul-server
+# 配置路由路径
+zuul:
+  routes:
+    product-service: /product-service/**
+  #配置路由前缀
+  prefix: /mall
+  ignored-patterns: product/login
+
+# 开启feign熔断
+feign:
+  hystrix:
+    enabled: true
+
+#配置ribbon连接参数
+ribbon:
+  # # 请求处理的超时时间 下级服务响应最大时间,超出时间消费方（路由也是消费方）返回timeout
+  ReadTimeout: 90000
+  # 请求连接的超时时间- 限制20秒内必须请求到服务，并不限制服务处理的返回时间
+  ConnectTimeout: 15000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 300000
+#配置端口号
+server:
+  port: 8500
+# header中存储的token的key
+token:
+  client:
+     header: authorization

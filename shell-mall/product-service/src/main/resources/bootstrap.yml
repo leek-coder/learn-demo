@@ -1,8 +1,8 @@
-server:
-  port: 8091
 spring:
   profiles:
     active: dev
+  application:
+    name: product-service
 
 ---
 spring:
@@ -12,7 +12,11 @@ spring:
       discovery:
         server-addr:  http://47.95.212.30:8848
         namespace: 2baa28a9-1077-4427-8f40-dbcc8fb69132
-
+      config:
+        server-addr: http://47.95.212.30:8848
+        namespace: 2baa28a9-1077-4427-8f40-dbcc8fb69132
+        file-extension: yaml
+        group: DEFAULT_GROUP
 
 
 

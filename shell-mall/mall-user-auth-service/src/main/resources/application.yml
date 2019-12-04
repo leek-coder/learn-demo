@@ -2,3 +2,18 @@
 spring:
   application:
     name: user-auth-service
+  #配置数据库
+  datasource:
+    url: jdbc:mysql://47.95.212.30:3306?shellmall?characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 101396
+
+server:
+  port: 8600
+
+#配置mybatis
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  type-aliases-package: com.huatech.mall.service.entity
+  mapper-locations: classpath:mapper/*/*.xml

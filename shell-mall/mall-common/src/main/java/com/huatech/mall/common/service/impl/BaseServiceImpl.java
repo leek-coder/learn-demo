@@ -49,8 +49,8 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements IBa
     }
 
     @Override
-    public int updateByPrimaryKey(ID id) {
-        return getBaseMapper().updateByPrimaryKey(id);
+    public int updateByPrimaryKey(T record) {
+        return getBaseMapper().updateByPrimaryKey(record);
     }
 
     @Override
