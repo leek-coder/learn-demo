@@ -42,6 +42,18 @@ public class ApiBaseConstants {
     /**
      * 管理后台初始密码
      */
-    public  static  final  String ORIGIN_PASSWORD = "leek-coder";
+    public static final String ORIGIN_PASSWORD = "leek-coder";
+
+
+    /**
+     * 隐藏
+     */
+    public static final Integer HIDE = 1;
+
+
+    /**
+     * 不隐藏
+     */
+    public static final Integer NOT_HIDE = 0;
 
 }
