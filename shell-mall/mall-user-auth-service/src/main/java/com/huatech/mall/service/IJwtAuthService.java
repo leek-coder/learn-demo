@@ -1,7 +1,7 @@
 package com.huatech.mall.service;
 
 
-import com.huatech.mall.dto.Token;
+import com.huatech.mall.res.Token;
 import com.huatech.mall.entity.JwtUser;
 import com.huatech.mall.entity.user.User;
 

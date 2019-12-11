@@ -9,6 +9,10 @@ package com.huatech.mall.common.constants;
 public class ApiBaseConstants {
 
     /**
+     * 调用远程服务成功表示码
+     */
+    public static final Integer REMOTE_SUCCESS = 0;
+    /**
      * 男
      */
     public static final Integer MAN = 0;
@@ -55,5 +59,6 @@ public class ApiBaseConstants {
      * 不隐藏
      */
     public static final Integer NOT_HIDE = 0;
+
 
 }

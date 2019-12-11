@@ -1,7 +1,7 @@
 package com.huatech.mall.controller;
 
 import com.huatech.mall.common.response.ResponseResult;
-import com.huatech.mall.dto.Token;
+import com.huatech.mall.res.Token;
 import com.huatech.mall.entity.JwtUser;
 import com.huatech.mall.entity.user.User;
 import com.huatech.mall.service.IJwtAuthService;
@@ -32,7 +32,7 @@ public class AuthUserController {
      * @return
      */
     @PostMapping(value = "/create")
-    public ResponseResult createToken(@Valid @RequestBody User user) {
+    public ResponseResult<Token> createToken(@Valid @RequestBody User user) {
         Token token = jwtAuthService.createToken(user);
         return ResponseResult.success(token);
     }
@@ -44,7 +44,7 @@ public class AuthUserController {
      * @return
      */
     @GetMapping(value = "/parse")
-    public ResponseResult parseToken(String token) {
+    public ResponseResult<JwtUser> parseToken(String token) {
         JwtUser jwtUser = jwtAuthService.parseToken(token);
         return ResponseResult.success(jwtUser);
     }

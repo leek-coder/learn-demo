@@ -1,4 +1,4 @@
-package com.huatech.mall.dto;
+package com.huatech.mall.res;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

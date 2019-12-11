@@ -1,7 +1,5 @@
-package com.huatech.mall.common.response;
+package com.huatech.zull.utils;
 
-
-import com.huatech.mall.common.enums.ApiBaseErrorCore;
 
 import java.io.Serializable;
 
@@ -19,7 +17,7 @@ public class ResponseResult<T> implements Serializable {
     private String message;
 
     /**
-     *  返回数据
+     * 返回数据
      */
     private T data;
 
@@ -85,9 +83,6 @@ public class ResponseResult<T> implements Serializable {
         return failure(CODE_FAIL, message, errorCode);
     }
 
-    public static final ResponseResult failure(ApiBaseErrorCore errorCode) {
-        return failure(CODE_FAIL, errorCode.getMessage(), errorCode.getCode());
-    }
 
     @Override
     public String toString() {

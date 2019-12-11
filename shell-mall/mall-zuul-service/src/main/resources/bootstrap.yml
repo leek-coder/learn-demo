@@ -1,6 +1,9 @@
 spring:
   profiles:
     active: dev
+#配置应用名称
+  application:
+    name: zuul-server
 
 ---
 spring:
@@ -10,7 +13,11 @@ spring:
       discovery:
         server-addr:  http://47.95.212.30:8848
         namespace: 2baa28a9-1077-4427-8f40-dbcc8fb69132
-
+      config:
+        server-addr: http://47.95.212.30:8848
+        namespace: 2baa28a9-1077-4427-8f40-dbcc8fb69132
+        file-extension: yaml
+        group: DEFAULT_GROUP
 
 
 

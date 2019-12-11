@@ -5,13 +5,23 @@ import com.huatech.mall.common.constants.ApiBaseConstants;
 import com.huatech.mall.common.enums.ApiBaseErrorCore;
 import com.huatech.mall.common.exception.ExceptionCustomer;
 import com.huatech.mall.common.mapper.IBaseMapper;
+import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.common.service.impl.BaseServiceImpl;
+import com.huatech.mall.common.utils.BeanValidator;
+import com.huatech.mall.common.utils.ICacheService;
+import com.huatech.mall.common.utils.JsonUtils;
 import com.huatech.mall.common.utils.MD5Utils;
 import com.huatech.mall.entity.user.User;
 import com.huatech.mall.mapper.user.UserMapper;
+import com.huatech.mall.param.user.LoginParam;
 import com.huatech.mall.param.user.UserParam;
+import com.huatech.mall.remote.user.IAuthUserFeignService;
+import com.huatech.mall.remote.user.request.UserTokenReq;
+import com.huatech.mall.res.user.LoginUserRes;
+import com.huatech.mall.token.Token;
 import com.huatech.mall.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -29,10 +39,20 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private IAuthUserFeignService authUserFeignService;
+
+    @Autowired
+    private ICacheService cacheService;
+
+    @Value("${redis.token.prefix}")
+    private String USER_PREFIX;
+
     @Override
     public IBaseMapper<User, Long> getBaseMapper() {
         return this.userMapper;
     }
+
 
     /**
      * 新增&&更新用户
@@ -90,4 +110,44 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
         PageHelper.startPage(userParam.getPage(), userParam.getSize());
         return userMapper.findUserList(userParam);
     }
+
+    /**
+     * @description: 用户登陆
+     * @Param
+     * @return:
+     * @author: leek
+     * @time: 2019/12/11 3:10 下午
+     */
+    @Override
+    public LoginUserRes login(LoginParam loginParam) {
+        //检查参数合法性
+        BeanValidator.check(loginParam);
+        //根据用户名查询用户是否存在
+        User user = userMapper.findUserByUserName(loginParam.getUserName());
+        if (null == user) {
+            throw new ExceptionCustomer(ApiBaseErrorCore.USER_NOT_EXISTS);
+        }
+        //检测密码是否一致
+        String input_password = MD5Utils.md5(loginParam.getPassword());
+        if (!input_password.equals(user.getPassword())) {
+            throw new ExceptionCustomer(ApiBaseErrorCore.PASSWORD_ERROR);
+        }
+        //验证通过生成token，并保存到redis里
+        UserTokenReq tokenReq = UserTokenReq.builder().id(user.getId()).nickName(user.getNickName()).userName(user.getUserName()).build();
+        ResponseResult<Token> response = authUserFeignService.createToken(JsonUtils.toString(tokenReq));
+        if (response.getCode() != ApiBaseConstants.REMOTE_SUCCESS || response.getData() == null) {
+            //调用鉴权接口失败
+            throw new ExceptionCustomer(ApiBaseErrorCore.AUTH_REMOTE_FAIL);
+        }
+
+        Token token = response.getData();
+        String tokenStr = token.getToken();
+        //保存redis
+        cacheService.set(USER_PREFIX + user.getId(), tokenStr, token.getExpiration());
+        LoginUserRes login = LoginUserRes.builder().email(user.getEmail()).id(user.getId()).mobile(user.getTelephone()).token(tokenStr).userName(user.getUserName()).build();
+
+        return login;
+    }
+
+
 }

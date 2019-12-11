@@ -16,7 +16,6 @@ public class User {
      * 
      * 表字段:id
      */
-    @JsonIgnore
     private Long id;
 
     /**

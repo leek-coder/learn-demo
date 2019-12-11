@@ -2,6 +2,7 @@ package com.huatech.mall.common.handler;
 
 import com.huatech.mall.common.exception.ExceptionCustomer;
 import com.huatech.mall.common.response.ExceptionResponseResult;
+import com.huatech.mall.common.response.ResponseResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,14 +20,14 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public ExceptionResponseResult handlerException(Exception e, HttpServletRequest httpServletRequest) {
+    public ResponseResult handlerException(Exception e, HttpServletRequest httpServletRequest) {
 
         if (e instanceof ExceptionCustomer) {
             ExceptionCustomer exceptionCustomer = (ExceptionCustomer) e;
-            return ExceptionResponseResult.failure(exceptionCustomer.getCode(), exceptionCustomer.getMessage(), exceptionCustomer.getErrorCode(),httpServletRequest.getRequestURI());
+            return  ResponseResult.failure(exceptionCustomer.getCode(),exceptionCustomer.getMessage());
         }
         else{
-            return ExceptionResponseResult.failure(-1, "失败", 1000,null);
+            return ResponseResult.failure(-1, "失败", 1000);
 
         }
     }

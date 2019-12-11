@@ -2,7 +2,7 @@ package com.huatech.mall.util;
 
 import com.huatech.mall.common.enums.ApiBaseErrorCore;
 import com.huatech.mall.common.exception.ExceptionCustomer;
-import com.huatech.mall.dto.Token;
+import com.huatech.mall.res.Token;
 import com.huatech.mall.entity.JwtUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

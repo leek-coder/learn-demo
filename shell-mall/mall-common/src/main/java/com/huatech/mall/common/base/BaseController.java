@@ -1,9 +1,12 @@
 package com.huatech.mall.common.base;
 
+import com.huatech.mall.common.utils.JsonUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @Author leek
@@ -14,26 +17,38 @@ import javax.servlet.http.HttpServletResponse;
 public class BaseController {
     @Autowired
     protected HttpServletResponse response;
+    /**
+     * 获取用户userId
+     *
+     * @param request
+     * @return
+     */
+    public JwtUser getUserInfo(HttpServletRequest request) {
+        //从请求header中获取token
+        String token = (String) request.getAttribute("authorization");
+        JwtUser jwtUser = null;
+        try {
+            jwtUser = JsonUtils.toObjectBean(token, JwtUser.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return jwtUser;
+
+    }
 
 
-    //获取用户userId
-//    public JwtUser getUserInfo(HttpServletRequest request) {
-//
-//        //从请求header中获取token
-//        String token = (String) request.getAttribute("userInfo");
-//        JwtUser jwtUser = JSON.parseObject(token, JwtUser.class);
-//        return jwtUser;
-//
-//    }
-
-
-    //从header中获取用户的token
-//    public String getToken(HttpServletRequest request) {
-//        //从请求header中获取token
-//        String token = request.getHeader("authorization");
-//        if (StringUtils.isNotBlank(token)) {
-//            return token;
-//        }
-//        return null;
-//    }
+    /**
+     * 从header中获取用户的token
+     *
+     * @param request
+     * @return
+     */
+    public String getToken(HttpServletRequest request) {
+        //从请求header中获取token
+        String token = request.getHeader("authorization");
+        if (StringUtils.isNotBlank(token)) {
+            return token;
+        }
+        return null;
+    }
 }

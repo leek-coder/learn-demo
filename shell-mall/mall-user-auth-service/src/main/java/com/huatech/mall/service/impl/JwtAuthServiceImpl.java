@@ -1,11 +1,14 @@
 package com.huatech.mall.service.impl;
 
-import com.huatech.mall.dto.Token;
+import com.huatech.mall.common.utils.ICacheService;
+import com.huatech.mall.res.Token;
 import com.huatech.mall.entity.JwtUser;
 import com.huatech.mall.entity.user.User;
 import com.huatech.mall.service.IJwtAuthService;
 import com.huatech.mall.util.JwtUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,8 +25,15 @@ public class JwtAuthServiceImpl implements IJwtAuthService {
     @Autowired
     private JwtUtils jwtUtils;
 
+    @Autowired
+    private ICacheService cacheService;
+
+    @Value("${redis.token.prefix}")
+    private String token_user;
+
     /**
      * 创建token信息
+     *
      * @param user
      * @return
      */
@@ -36,7 +46,17 @@ public class JwtAuthServiceImpl implements IJwtAuthService {
 
     @Override
     public JwtUser parseToken(String token) {
-        return jwtUtils.getUserFromToken(token);
+        JwtUser user = jwtUtils.getUserFromToken(token);
+        //从redis中查看用户是否存在
+        String tokenStr = cacheService.get(token_user + user.getId());
+        if(StringUtils.isBlank(tokenStr)){
+            //token已经过期
+        }
+        //
+        if(!token.equals(tokenStr)){
+           //token不合法
+        }
+        return user;
     }
 
 

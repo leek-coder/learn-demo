@@ -24,8 +24,6 @@ public class ExceptionCustomer extends RuntimeException {
 
     private Integer errorCode;
 
-//    private ApiBaseErrorCore apiBaseErrorCore;
-
 
     @Override
     public String getMessage() {
@@ -71,11 +69,5 @@ public class ExceptionCustomer extends RuntimeException {
         this.errorCode = errorCode;
     }
 
-//    public ApiBaseErrorCore getApiBaseErrorCore() {
-//        return apiBaseErrorCore;
-//    }
-//
-//    public void setApiBaseErrorCore(ApiBaseErrorCore apiBaseErrorCore) {
-//        this.apiBaseErrorCore = apiBaseErrorCore;
-//    }
+
 }
