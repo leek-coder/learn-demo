@@ -2,6 +2,8 @@ package com.huatech.mall.service;
 
 
 import com.huatech.mall.dto.Token;
+import com.huatech.mall.entity.JwtUser;
+import com.huatech.mall.entity.user.User;
 
 /**
  * @ClassName IJwtAuthService
@@ -12,5 +14,17 @@ import com.huatech.mall.dto.Token;
  **/
 public interface IJwtAuthService {
 
-//    Token createToken(Long userId, String openId, String cardNum, String unionId);
+    /**
+     * 根据用户信息生成token信息
+     * @param user
+     * @return
+     */
+    Token createToken(User user);
+
+    /**
+     * 解析token合法性
+     * @param token
+     * @return
+     */
+    JwtUser parseToken(String token);
 }

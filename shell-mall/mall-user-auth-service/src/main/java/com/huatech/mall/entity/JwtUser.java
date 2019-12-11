@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
  * @ClassName JwtUser
  * @Description TODO
  * @Author like
- * @Date 2019-07-31 13:33
+ * @Date 2019-12-11 13:33
  * @Version 1.0
  **/
 @Data
@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class JwtUser {
 
-    private Long userId;
-    private String openId;
+    private Long id;
+    private String userName;
+    private String nickName;
 }

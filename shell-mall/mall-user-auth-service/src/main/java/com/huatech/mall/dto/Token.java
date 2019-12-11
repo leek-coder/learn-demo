@@ -17,6 +17,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Token {
-    private String accessToken;
+    private String token;
     private Long expiration;
 }

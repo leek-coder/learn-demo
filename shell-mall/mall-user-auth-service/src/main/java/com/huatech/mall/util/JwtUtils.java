@@ -1,5 +1,7 @@
 package com.huatech.mall.util;
 
+import com.huatech.mall.common.enums.ApiBaseErrorCore;
+import com.huatech.mall.common.exception.ExceptionCustomer;
 import com.huatech.mall.dto.Token;
 import com.huatech.mall.entity.JwtUser;
 import io.jsonwebtoken.Claims;
@@ -24,10 +26,9 @@ import java.util.Map;
 @Slf4j
 public class JwtUtils {
 
-    private static final String CLAIM_KEY_USERNAME = "openId";
-    private static final String CLAIM_KEY_USER_ID = "userId";
-    private static final String CLAIM_KEY_UNION_ID = "unionId";
-    private static final String CLAIM_KEY_CARD_NUM = "cardNum";
+    private static final String CLAIM_KEY_USERNAME = "userName";
+    private static final String CLAIM_KEY_NICKNAME = "nickName";
+    private static final String CLAIM_KEY_USER_ID = "id";
     private static final String CLAIM_KEY_CREATED = "created";
     private static final String CLAIM_KEY_ISS = "iss";
     private static final String CLAIM_KEY_TOKEN_TYPE = "tokenType";
@@ -45,24 +46,28 @@ public class JwtUtils {
     private String tokenType;
 
 
-    //生成token
+    /**
+     * 生成token信息
+     *
+     * @param jwtUser
+     * @return
+     */
     public Token createToken(JwtUser jwtUser) {
         if (jwtUser != null) {
             Map<String, Object> claims = new HashMap<>();
             // 面向的用户名称
-            claims.put(CLAIM_KEY_USERNAME, jwtUser.getOpenId());
+            claims.put(CLAIM_KEY_USERNAME, jwtUser.getUserName());
             // 用户id
-            claims.put(CLAIM_KEY_USER_ID, jwtUser.getUserId());
-//            claims.put(CLAIM_KEY_CARD_NUM, jwtUser.getCardNum());
-//            claims.put(CLAIM_KEY_UNION_ID, jwtUser.getUnionId());
+            claims.put(CLAIM_KEY_USER_ID, jwtUser.getId());
             // 创建时间
             claims.put(CLAIM_KEY_CREATED, new Date());
+            claims.put(CLAIM_KEY_NICKNAME, jwtUser.getNickName());
             // JWT签发者
             claims.put(CLAIM_KEY_ISS, issuer);
             // token类型
             claims.put(CLAIM_KEY_TOKEN_TYPE, tokenType);
             String accessToken = generateToken(claims);
-            return Token.builder().accessToken(accessToken).expiration(expiration).build();
+            return Token.builder().token(accessToken).expiration(expiration).build();
         }
         return null;
     }
@@ -93,21 +98,18 @@ public class JwtUtils {
      * token中获取用户信息
      */
     public JwtUser getUserFromToken(String token) {
-
         try {
             final Claims claims = getClaimsFromToken(token);
-            String openId = (String) claims.get("openId");
-            String cardNum = (String) claims.get("cardNum");
-            String unionId = (String) claims.get("unionId");
-            Integer userId = (Integer) claims.get("userId");
-            Long id = new Long(userId);
-            JwtUser jwtUser = JwtUser.builder().openId(openId).userId(id).build();
+            String userName = (String) claims.get("userName");
+            Integer id = (Integer) claims.get("id");
+            long value = id.longValue();
+            String nickName = (String) claims.get("nickName");
+            JwtUser jwtUser = JwtUser.builder().userName(userName).id(value).nickName(nickName).build();
             return jwtUser;
         } catch (Exception e) {
-//            throw new ExceptionCustomer(ApiConstants.TOKEN_FAIL, "token is not valid");
+            throw new ExceptionCustomer(ApiBaseErrorCore.TOKEN_FAIL);
         }
 
-        return null;
     }
 
     /**
