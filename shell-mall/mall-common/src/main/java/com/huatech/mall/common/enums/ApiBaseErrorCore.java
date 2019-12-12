@@ -20,6 +20,8 @@ public enum ApiBaseErrorCore {
 
 
     TOKEN_FAIL("Token验证失败", 4000),
+    TOKEN_IS_EXPIRED("Token已过期", 4001),
+    TOKEN_IS_VALID("Token不合法", 4002),
 
     REMOTE_SERVICE_FAIL("远程服务调用失败",5000),
     JSON_TRANS_ERROR("参数转化异常",5001),

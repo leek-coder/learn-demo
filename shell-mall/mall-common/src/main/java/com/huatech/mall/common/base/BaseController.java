@@ -1,12 +1,11 @@
 package com.huatech.mall.common.base;
 
-import com.huatech.mall.common.utils.JsonUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.huatech.mall.common.jwt.JwtUser;
+import com.huatech.mall.common.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @Author leek
@@ -17,6 +16,10 @@ import java.io.IOException;
 public class BaseController {
     @Autowired
     protected HttpServletResponse response;
+
+    @Autowired
+    private JwtUtils jwtUtils;
+
     /**
      * 获取用户userId
      *
@@ -25,30 +28,8 @@ public class BaseController {
      */
     public JwtUser getUserInfo(HttpServletRequest request) {
         //从请求header中获取token
-        String token = (String) request.getAttribute("authorization");
-        JwtUser jwtUser = null;
-        try {
-            jwtUser = JsonUtils.toObjectBean(token, JwtUser.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String header = request.getHeader("Authorization");
+        JwtUser jwtUser = jwtUtils.getUserFromToken(header);
         return jwtUser;
-
-    }
-
-
-    /**
-     * 从header中获取用户的token
-     *
-     * @param request
-     * @return
-     */
-    public String getToken(HttpServletRequest request) {
-        //从请求header中获取token
-        String token = request.getHeader("authorization");
-        if (StringUtils.isNotBlank(token)) {
-            return token;
-        }
-        return null;
     }
 }

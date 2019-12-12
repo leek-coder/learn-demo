@@ -1,8 +1,8 @@
 package com.huatech.mall.remote.user;
 
+import com.huatech.mall.common.jwt.Token;
 import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.remote.user.fallback.AuthUserFeignServiceFallBack;
-import com.huatech.mall.token.Token;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

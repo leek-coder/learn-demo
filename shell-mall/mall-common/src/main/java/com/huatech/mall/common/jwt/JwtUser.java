@@ -1,4 +1,4 @@
-package com.huatech.mall.entity;
+package com.huatech.mall.common.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

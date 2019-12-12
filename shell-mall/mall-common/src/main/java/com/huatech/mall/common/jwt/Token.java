@@ -1,4 +1,4 @@
-package com.huatech.mall.res;
+package com.huatech.mall.common.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,11 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @ClassName Token
- * @Description TODO
- * @Author like
- * @Date 2019-10-31 13:18
- * @Version 1.0
+ * @author like
+ * @date 2019-12-11 4:20 下午
  **/
 @Data
 @AllArgsConstructor

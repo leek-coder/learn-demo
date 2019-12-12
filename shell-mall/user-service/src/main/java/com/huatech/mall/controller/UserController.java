@@ -1,7 +1,7 @@
 package com.huatech.mall.controller;
 
 import com.huatech.mall.common.base.BaseController;
-import com.huatech.mall.common.base.JwtUser;
+import com.huatech.mall.common.jwt.JwtUser;
 import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.common.utils.ICacheService;
 import com.huatech.mall.param.user.LoginParam;

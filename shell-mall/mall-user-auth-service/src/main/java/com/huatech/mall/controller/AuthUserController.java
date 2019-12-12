@@ -1,8 +1,8 @@
 package com.huatech.mall.controller;
 
+import com.huatech.mall.common.jwt.JwtUser;
+import com.huatech.mall.common.jwt.Token;
 import com.huatech.mall.common.response.ResponseResult;
-import com.huatech.mall.res.Token;
-import com.huatech.mall.entity.JwtUser;
 import com.huatech.mall.entity.user.User;
 import com.huatech.mall.service.IJwtAuthService;
 import lombok.extern.slf4j.Slf4j;

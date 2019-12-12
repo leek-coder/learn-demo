@@ -1,5 +1,6 @@
 package com.huatech.zull.fitler;
 
+import com.huatech.zull.feign.IUserAuthFeignService;
 import com.huatech.zull.utils.JsonUtils;
 import com.huatech.zull.utils.ResponseResult;
 import com.netflix.zuul.ZuulFilter;
@@ -8,6 +9,7 @@ import com.netflix.zuul.exception.ZuulException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +30,9 @@ public class ZuulCustomerFilter extends ZuulFilter {
 
     @Value("${token.header}")
     private String tokenHeader;
+
+    @Autowired
+    private IUserAuthFeignService userAuthFeignService;
 
     @Override
     public String filterType() {
@@ -58,12 +63,19 @@ public class ZuulCustomerFilter extends ZuulFilter {
         logger.info("=====requestHeaderToken===" + requestHeaderToken);
         if (StringUtils.isBlank(requestHeaderToken)) {
             context.setSendZuulResponse(false);
-            context.setResponseBody(JsonUtils.toString(ResponseResult.failure(1000, "1111")));
+            context.setResponseBody(JsonUtils.toString(ResponseResult.failure(4004, "token不能为空")));
+            context.getResponse().setContentType("application/json; charset=utf-8");
             return null;
         }
-
-
-
+        ResponseResult<JwtUser> responseResult = userAuthFeignService.parseToken(requestHeaderToken);
+        if (responseResult.getCode() != 0 || responseResult.getData() == null) {
+            context.setSendZuulResponse(false);
+            context.setResponseBody(JsonUtils.toString(responseResult));
+            context.getResponse().setContentType("application/json; charset=utf-8");
+            return null;
+        }
+        context.addZuulRequestHeader(tokenHeader, requestHeaderToken);
+        context.getRequest().setAttribute("userInfo", JsonUtils.toString(responseResult.getData()));
         return null;
     }
 }

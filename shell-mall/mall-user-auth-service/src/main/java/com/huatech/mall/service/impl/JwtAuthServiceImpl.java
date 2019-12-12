@@ -1,11 +1,13 @@
 package com.huatech.mall.service.impl;
 
+import com.huatech.mall.common.enums.ApiBaseErrorCore;
+import com.huatech.mall.common.exception.ExceptionCustomer;
+import com.huatech.mall.common.jwt.JwtUser;
+import com.huatech.mall.common.jwt.JwtUtils;
+import com.huatech.mall.common.jwt.Token;
 import com.huatech.mall.common.utils.ICacheService;
-import com.huatech.mall.res.Token;
-import com.huatech.mall.entity.JwtUser;
 import com.huatech.mall.entity.user.User;
 import com.huatech.mall.service.IJwtAuthService;
-import com.huatech.mall.util.JwtUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,12 +51,14 @@ public class JwtAuthServiceImpl implements IJwtAuthService {
         JwtUser user = jwtUtils.getUserFromToken(token);
         //从redis中查看用户是否存在
         String tokenStr = cacheService.get(token_user + user.getId());
-        if(StringUtils.isBlank(tokenStr)){
+        if (StringUtils.isBlank(tokenStr)) {
             //token已经过期
+            throw new ExceptionCustomer(ApiBaseErrorCore.TOKEN_IS_EXPIRED);
         }
         //
-        if(!token.equals(tokenStr)){
-           //token不合法
+        if (!token.equals(tokenStr)) {
+            //token不合法
+            throw new ExceptionCustomer(ApiBaseErrorCore.TOKEN_IS_VALID);
         }
         return user;
     }
