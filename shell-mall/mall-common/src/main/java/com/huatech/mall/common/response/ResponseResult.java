@@ -5,21 +5,33 @@ import com.huatech.mall.common.enums.ApiBaseErrorCore;
 
 import java.io.Serializable;
 
-
+/**
+ * @ClassName ResponseResult
+ * @Description TODO
+ * @Author like
+ * @Date 2019-12-08 12:13
+ * @Version 1.0
+ **/
 public class ResponseResult<T> implements Serializable {
     private static final long serialVersionUID = -1491499610244557029L;
-    public static int CODE_SUCCESS = 0;
-    public static int CODE_FAIL = -1;
+    /**
+     * 成功状态码200
+     */
+    public static int CODE_SUCCESS = 200;
+    /**
+     * 失败状态码 500
+     */
+    public static int CODE_FAIL = 500;
     public static String[] NOOP = new String[]{};
 
     /**
-     * 处理状态：0: 成功
+     * 处理状态：200: 成功
      */
     private int code;
     private String message;
 
     /**
-     *  返回数据
+     * 返回数据
      */
     private T data;
 

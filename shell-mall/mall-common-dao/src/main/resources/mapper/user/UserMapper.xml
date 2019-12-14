@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.huatech.mall.mapper.user.UserMapper">
-  <resultMap id="BaseResultMap" type="com.huatech.mall.entity.user.User">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
-    <result column="sex" jdbcType="INTEGER" property="sex" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
-    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="delete_status" jdbcType="INTEGER" property="deleteStatus" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="locked" jdbcType="INTEGER" property="locked" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.huatech.mall.entity.user.User">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="birthday" jdbcType="TIMESTAMP" property="birthday"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="delete_status" jdbcType="INTEGER" property="deleteStatus"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="locked" jdbcType="INTEGER" property="locked"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, user_name, nick_name, sex, address, telephone, birthday, password, delete_status, 
     email, locked, description, create_time, update_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_user
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.huatech.mall.entity.user.User">
+    <insert id="insert" parameterType="com.huatech.mall.entity.user.User">
     insert into t_user (id, user_name, nick_name, 
       sex, address, telephone, 
       birthday, password, delete_status, 
@@ -43,99 +43,99 @@
       #{email,jdbcType=VARCHAR}, #{locked,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.huatech.mall.entity.user.User">
-    insert into t_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userName != null">
-        user_name,
-      </if>
-      <if test="nickName != null">
-        nick_name,
-      </if>
-      <if test="sex != null">
-        sex,
-      </if>
-      <if test="address != null">
-        address,
-      </if>
-      <if test="telephone != null">
-        telephone,
-      </if>
-      <if test="birthday != null">
-        birthday,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="deleteStatus != null">
-        delete_status,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="locked != null">
-        locked,
-      </if>
-      <if test="description != null">
-        description,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="nickName != null">
-        #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        #{sex,jdbcType=INTEGER},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
-        #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="birthday != null">
-        #{birthday,jdbcType=TIMESTAMP},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="deleteStatus != null">
-        #{deleteStatus,jdbcType=INTEGER},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="locked != null">
-        #{locked,jdbcType=INTEGER},
-      </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="com.huatech.mall.entity.user.User">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="nickName != null">
+                nick_name,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="telephone != null">
+                telephone,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="deleteStatus != null">
+                delete_status,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="locked != null">
+                locked,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteStatus != null">
+                #{deleteStatus,jdbcType=INTEGER},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="locked != null">
+                #{locked,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
 
-  <update id="updateByPrimaryKey" parameterType="com.huatech.mall.entity.user.User">
+    <update id="updateByPrimaryKey" parameterType="com.huatech.mall.entity.user.User">
     update t_user
     set user_name = #{userName,jdbcType=VARCHAR},
       nick_name = #{nickName,jdbcType=VARCHAR},
@@ -157,7 +157,7 @@
     <select id="findUserByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
 
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from t_user
         <where>
             user_name = #{userName}
@@ -169,7 +169,7 @@
     <select id="findUserByPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
 
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from t_user
         <where>
             telephone = #{telephone}
@@ -180,7 +180,7 @@
 
     <select id="findUserList" parameterType="com.huatech.mall.param.user.UserParam" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from t_user
 
         <where>
@@ -193,5 +193,30 @@
 
     </select>
 
+    <!--  查询用户角色-->
+    <select id="findUserRoles" parameterType="java.lang.Long" resultType="com.huatech.mall.res.user.UserRoleRes">
 
+        select u.user_name userName, u.id uid,r.name roleName,r.id rid
+        from t_user u
+        inner JOIN t_user_role ur
+        on u.id= ur.u_id
+        inner JOIN t_role r
+        on r.id = ur.r_id
+        and
+        u.id = #{userId}
+    </select>
+
+
+    <!--    查询角色所有权限-->
+    <select id="findRoleResources" parameterType="java.lang.Long"
+            resultType="com.huatech.mall.res.user.UserResourcesRes"
+    >
+        select ts.id,ts.name,ts.parent_id parentId,ts.type type,ts.level,
+        ts.sort,ts.source_key sourceKey,ts.source_url sourceUrl
+        from t_role_resource  rs
+        inner  join t_resource  ts
+        on rs.s_id =  ts.id
+        and rs.r_id = #{roleId}
+
+    </select>
 </mapper>

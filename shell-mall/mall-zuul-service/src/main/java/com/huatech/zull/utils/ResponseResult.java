@@ -6,12 +6,12 @@ import java.io.Serializable;
 
 public class ResponseResult<T> implements Serializable {
     private static final long serialVersionUID = -1491499610244557029L;
-    public static int CODE_SUCCESS = 0;
+    public static int CODE_SUCCESS = 200;
     public static int CODE_FAIL = -1;
     public static String[] NOOP = new String[]{};
 
     /**
-     * 处理状态：0: 成功
+     * 处理状态：200: 成功
      */
     private int code;
     private String message;

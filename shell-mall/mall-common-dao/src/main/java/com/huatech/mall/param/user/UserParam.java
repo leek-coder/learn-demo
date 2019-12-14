@@ -2,6 +2,7 @@ package com.huatech.mall.param.user;
 
 import com.huatech.mall.common.base.BaseParam;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -14,6 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Data
 public class UserParam extends BaseParam {
 
     /**

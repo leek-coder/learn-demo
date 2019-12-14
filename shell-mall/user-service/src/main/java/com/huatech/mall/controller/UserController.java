@@ -6,6 +6,8 @@ import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.common.utils.ICacheService;
 import com.huatech.mall.param.user.LoginParam;
 import com.huatech.mall.res.user.LoginUserRes;
+import com.huatech.mall.res.user.MenusRes;
+import com.huatech.mall.res.user.UserRoleRes;
 import com.huatech.mall.user.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 用户相关业务控制器
@@ -58,6 +61,31 @@ public class UserController extends BaseController {
         final JwtUser userInfo = getUserInfo(servletRequest);
         cacheService.remove(USER_PREFIX + userInfo.getId());
         return ResponseResult.success();
+    }
+
+    @ApiOperation(value = "获取系统权限数", notes = "获取系统权限数")
+    @GetMapping(value = "/menus")
+    public ResponseResult menus(HttpServletRequest servletRequest) {
+        final JwtUser userInfo = getUserInfo(servletRequest);
+        UserRoleRes roleRes = userService.findUserRoles(userInfo.getId());
+        List<MenusRes> roleMenus = userService.findRoleMenus(roleRes.getRid());
+        return ResponseResult.success(roleMenus);
+    }
+
+
+    @ApiOperation(value = "获取用户所有角色", notes = "获取用户所有角色")
+    @GetMapping(value = "/roles")
+    public ResponseResult getRoles(HttpServletRequest request, Long userId) {
+        UserRoleRes roleRes = userService.findUserRoles(userId);
+        return ResponseResult.success(roleRes);
+    }
+
+
+    @ApiOperation(value = "获取角色所有的资源权限列表", notes = "获取角色所有的资源权限列表")
+    @GetMapping(value = "/resources", consumes = "application/json")
+    public ResponseResult getResources(HttpServletRequest request, Long roleId) {
+        List<MenusRes> roleMenus = userService.findRoleMenus(roleId);
+        return ResponseResult.success(roleMenus);
     }
 
 

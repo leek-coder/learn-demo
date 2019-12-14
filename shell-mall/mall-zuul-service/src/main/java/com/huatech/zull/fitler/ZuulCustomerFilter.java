@@ -31,6 +31,8 @@ public class ZuulCustomerFilter extends ZuulFilter {
     @Value("${token.header}")
     private String tokenHeader;
 
+    private static  final  Integer SUCCESS_CODE = 200;
+
     @Autowired
     private IUserAuthFeignService userAuthFeignService;
 
@@ -55,27 +57,29 @@ public class ZuulCustomerFilter extends ZuulFilter {
         HttpServletRequest request = context.getRequest();
         String requestURI = request.getRequestURI();
         //过滤登陆接口，直接放行
+        boolean flag = false;
         if (requestURI.contains(urlIgnores)) {
-            return null;
+            flag = true;
         }
-        // 从请求head中获得token
-        String requestHeaderToken = request.getHeader(tokenHeader);
-        logger.info("=====requestHeaderToken===" + requestHeaderToken);
-        if (StringUtils.isBlank(requestHeaderToken)) {
-            context.setSendZuulResponse(false);
-            context.setResponseBody(JsonUtils.toString(ResponseResult.failure(4004, "token不能为空")));
-            context.getResponse().setContentType("application/json; charset=utf-8");
-            return null;
+        if (!flag) {
+            // 从请求head中获得token
+            String requestHeaderToken = request.getHeader(tokenHeader);
+            logger.info("=====requestHeaderToken===" + requestHeaderToken);
+            if (StringUtils.isBlank(requestHeaderToken)) {
+                context.setSendZuulResponse(false);
+                context.setResponseBody(JsonUtils.toString(ResponseResult.failure(4004, "token不能为空")));
+                context.getResponse().setContentType("application/json; charset=utf-8");
+                return null;
+            }
+            ResponseResult<JwtUser> responseResult = userAuthFeignService.parseToken(requestHeaderToken);
+            if (responseResult.getCode() != SUCCESS_CODE || responseResult.getData() == null) {
+                context.setSendZuulResponse(false);
+                context.setResponseBody(JsonUtils.toString(responseResult));
+                context.getResponse().setContentType("application/json; charset=utf-8");
+                return null;
+            }
+            context.addZuulRequestHeader(tokenHeader, requestHeaderToken);
         }
-        ResponseResult<JwtUser> responseResult = userAuthFeignService.parseToken(requestHeaderToken);
-        if (responseResult.getCode() != 0 || responseResult.getData() == null) {
-            context.setSendZuulResponse(false);
-            context.setResponseBody(JsonUtils.toString(responseResult));
-            context.getResponse().setContentType("application/json; charset=utf-8");
-            return null;
-        }
-        context.addZuulRequestHeader(tokenHeader, requestHeaderToken);
-        context.getRequest().setAttribute("userInfo", JsonUtils.toString(responseResult.getData()));
         return null;
     }
 }

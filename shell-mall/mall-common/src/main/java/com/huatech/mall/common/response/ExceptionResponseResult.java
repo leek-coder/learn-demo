@@ -2,13 +2,31 @@ package com.huatech.mall.common.response;
 
 import java.io.Serializable;
 
-
+/**
+ * @ClassName ExceptionResponseResult
+ * @Description TODO
+ * @Author like
+ * @Date 2019-12-08 13:33
+ * @Version 1.0
+ **/
 public class ExceptionResponseResult implements Serializable {
     private static final long serialVersionUID = -1491499610244557029L;
-    public static int CODE_FAIL = -1;
-    private int code; // 处理状态：0: 成功
+    public static int CODE_FAIL = 5000;
+    /**
+     * 处理状态：200: 成功
+     */
+    private int code;
+    /**
+     * 提示信息
+     */
     private String message;
-    private int errorCode; //错误码
+    /**
+     * 错误码
+     */
+    private int errorCode;
+    /**
+     * 请求路径
+     */
     private String request_url;
 
     private ExceptionResponseResult(int code, String message) {

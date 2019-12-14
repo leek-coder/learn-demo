@@ -11,7 +11,7 @@ public class ApiBaseConstants {
     /**
      * 调用远程服务成功表示码
      */
-    public static final Integer REMOTE_SUCCESS = 0;
+    public static final Integer REMOTE_SUCCESS = 200;
     /**
      * 男
      */

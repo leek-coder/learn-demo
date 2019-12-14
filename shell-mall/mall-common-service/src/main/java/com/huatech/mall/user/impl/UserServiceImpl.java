@@ -1,5 +1,8 @@
 package com.huatech.mall.user.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.github.pagehelper.PageHelper;
 import com.huatech.mall.common.constants.ApiBaseConstants;
 import com.huatech.mall.common.enums.ApiBaseErrorCore;
@@ -8,10 +11,7 @@ import com.huatech.mall.common.jwt.Token;
 import com.huatech.mall.common.mapper.IBaseMapper;
 import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.common.service.impl.BaseServiceImpl;
-import com.huatech.mall.common.utils.BeanValidator;
-import com.huatech.mall.common.utils.ICacheService;
-import com.huatech.mall.common.utils.JsonUtils;
-import com.huatech.mall.common.utils.MD5Utils;
+import com.huatech.mall.common.utils.*;
 import com.huatech.mall.entity.user.User;
 import com.huatech.mall.mapper.user.UserMapper;
 import com.huatech.mall.param.user.LoginParam;
@@ -19,13 +19,16 @@ import com.huatech.mall.param.user.UserParam;
 import com.huatech.mall.remote.user.IAuthUserFeignService;
 import com.huatech.mall.remote.user.request.UserTokenReq;
 import com.huatech.mall.res.user.LoginUserRes;
+import com.huatech.mall.res.user.MenusRes;
+import com.huatech.mall.res.user.UserResourcesRes;
+import com.huatech.mall.res.user.UserRoleRes;
 import com.huatech.mall.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 用户管理service实现
@@ -147,6 +150,29 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
         LoginUserRes login = LoginUserRes.builder().email(user.getEmail()).id(user.getId()).mobile(user.getTelephone()).token(tokenStr).userName(user.getUserName()).build();
 
         return login;
+    }
+
+    @Override
+    public UserRoleRes findUserRoles(Long userId) {
+        return userMapper.findUserRoles(userId);
+    }
+
+    @Override
+    public List<MenusRes> findRoleMenus(Long roleId) {
+        //查询所有的角色权限
+        List<UserResourcesRes> resList = userMapper.findRoleResources(roleId);
+        List<ITreeNode> list = new ArrayList<>();
+        resList.forEach(e -> {
+            list.add(e);
+        });
+        Tree tree = new Tree(list);
+        List<TreeNode> tree1 = tree.getTree();
+        SimplePropertyPreFilter filter = new SimplePropertyPreFilter();
+        filter.getExcludes().add("parent");
+        List<MenusRes> menusRes = JSONArray.parseArray(JSONObject.toJSONString(tree1, filter), MenusRes.class);
+
+        return menusRes;
+
     }
 
 

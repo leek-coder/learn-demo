@@ -62,7 +62,6 @@ public class RoleController {
         return ResponseResult.success(roles);
     }
 
-
     @PostMapping(value = "/update")
     @ApiOperation(value = "角色信息修改", notes = "角色信息修改")
     public ResponseResult update(@RequestBody Role role) {

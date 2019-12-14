@@ -19,10 +19,6 @@ public class LoginUserRes implements Serializable {
     private Long id;
 
     /**
-     * 角色id
-     */
-    private Long rid;
-    /**
      * 用户姓名
      */
     private String userName;
@@ -47,15 +43,6 @@ public class LoginUserRes implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public Long getRid() {
-        return rid;
-    }
-
-    public void setRid(Long rid) {
-        this.rid = rid;
-    }
-
     public String getUserName() {
         return userName;
     }
@@ -92,7 +79,6 @@ public class LoginUserRes implements Serializable {
     public String toString() {
         return "LoginUserRes{" +
                 "id=" + id +
-                ", rid=" + rid +
                 ", userName='" + userName + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", email='" + email + '\'' +

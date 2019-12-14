@@ -57,7 +57,7 @@ public class UserManagementController {
 
     @GetMapping(value = "/query")
     @ApiOperation(value = "查询用户列表", notes = "查询系统所有符合条件的用户")
-    public ResponseResult list(@RequestBody UserParam userParam) {
+    public ResponseResult list(UserParam userParam) {
         log.info("=========query===============");
         List<User> users = userService.findUserList(userParam);
         return ResponseResult.success(users);
