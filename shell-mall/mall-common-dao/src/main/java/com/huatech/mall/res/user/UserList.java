@@ -67,7 +67,7 @@ public class UserList implements Serializable {
      *
      * 表字段:create_time
      */
-    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:dd",timezone = "GMT+8")
     private Date createTime;
 
     /**

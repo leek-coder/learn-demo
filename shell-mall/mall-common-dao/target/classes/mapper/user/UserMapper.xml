@@ -168,7 +168,8 @@
     </select>
 
 
-    <select id="findUserList" parameterType="com.huatech.mall.param.user.UserParam"  resultType="com.huatech.mall.res.user.UserList">
+    <select id="findUserList" parameterType="com.huatech.mall.param.user.UserParam"
+            resultType="com.huatech.mall.res.user.UserList">
         select
         <include refid="Base_Column_List"/>
         from t_user
@@ -209,4 +210,5 @@
         and rs.r_id = #{roleId}
         order by sort asc
     </select>
+
 </mapper>

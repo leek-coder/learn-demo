@@ -6,6 +6,7 @@ import com.huatech.mall.param.user.UserParam;
 import com.huatech.mall.res.user.UserList;
 import com.huatech.mall.res.user.UserResourcesRes;
 import com.huatech.mall.res.user.UserRoleRes;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -48,4 +49,5 @@ public interface UserMapper extends IBaseMapper<User, Long> {
     UserRoleRes findUserRoles(Long userId);
 
     List<UserResourcesRes> findRoleResources(Long roleId);
+
 }

@@ -3,6 +3,7 @@ package com.huatech.mall.resource;
 import com.huatech.mall.common.service.IBaseService;
 import com.huatech.mall.entity.resource.Resource;
 import com.huatech.mall.param.resource.ResourceParam;
+import com.huatech.mall.res.resource.ResourceQueryRes;
 
 import java.util.List;
 
@@ -19,5 +20,5 @@ public interface IResourceService extends IBaseService<Resource, Long> {
      * @param param
      * @return
      */
-    List<Resource> findResourcesList(ResourceParam param);
+    ResourceQueryRes findResourcesList(ResourceParam param);
 }

@@ -4,6 +4,7 @@ import com.huatech.mall.common.base.BaseController;
 import com.huatech.mall.common.jwt.JwtUser;
 import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.common.utils.ICacheService;
+import com.huatech.mall.entity.user.User;
 import com.huatech.mall.param.user.LoginParam;
 import com.huatech.mall.res.user.LoginUserRes;
 import com.huatech.mall.res.user.MenusRes;

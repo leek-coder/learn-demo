@@ -50,4 +50,5 @@ public interface IUserService extends IBaseService<User, Long> {
      * @return
      */
     List<MenusRes> findRoleMenus(Long UserId);
+
 }

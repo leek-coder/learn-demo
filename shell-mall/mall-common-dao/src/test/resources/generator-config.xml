@@ -72,7 +72,7 @@
             targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
          -->
         <javaModelGenerator
-                targetPackage="com.huatech.mall.entity.user"
+                targetPackage="com.huatech.mall.entity.resource"
                 targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
@@ -84,7 +84,7 @@
                 或者只使用Mapper接口+Annotation，所以，如果 javaClientGenerator配置中配置了需要生成XML的话，这个元素就必须配置
             targetPackage/targetProject:同javaModelGenerator
          -->
-        <sqlMapGenerator targetPackage="mapper.user"
+        <sqlMapGenerator targetPackage="mapper.resource"
                          targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
@@ -99,7 +99,7 @@
             注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
         -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.huatech.mall.mapper.user"
+                             targetPackage="com.huatech.mall.mapper.resource"
                              targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
@@ -156,8 +156,8 @@
                <!--enableDeleteByExample="false" enableSelectByExample="false"-->
                <!--selectByExampleQueryId="false">-->
         <!--</table>-->
-        <table tableName="t_user"
-               domainObjectName="User"
+        <table tableName="t_resource"
+               domainObjectName="Resource"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

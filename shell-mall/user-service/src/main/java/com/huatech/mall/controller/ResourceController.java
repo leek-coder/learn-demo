@@ -4,6 +4,7 @@ import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.common.utils.BeanValidator;
 import com.huatech.mall.entity.resource.Resource;
 import com.huatech.mall.param.resource.ResourceParam;
+import com.huatech.mall.res.resource.ResourceQueryRes;
 import com.huatech.mall.resource.IResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -56,10 +57,10 @@ public class ResourceController {
 
     @GetMapping(value = "/query")
     @ApiOperation(value = "查询资源列表", notes = "查询系统所有符合条件的资源")
-    public ResponseResult list(@RequestBody ResourceParam param) {
+    public ResponseResult list(ResourceParam param) {
         log.info("=========query===============");
-        List<Resource> resources = resourceService.findResourcesList(param);
-        return ResponseResult.success(resources);
+        ResourceQueryRes resourcesList = resourceService.findResourcesList(param);
+        return ResponseResult.success(resourcesList);
     }
 
 

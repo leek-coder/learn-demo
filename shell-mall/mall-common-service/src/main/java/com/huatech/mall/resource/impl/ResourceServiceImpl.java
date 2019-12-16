@@ -1,6 +1,7 @@
 package com.huatech.mall.resource.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.huatech.mall.common.enums.ApiBaseErrorCore;
 import com.huatech.mall.common.exception.ExceptionCustomer;
 import com.huatech.mall.common.mapper.IBaseMapper;
@@ -8,6 +9,8 @@ import com.huatech.mall.common.service.impl.BaseServiceImpl;
 import com.huatech.mall.entity.resource.Resource;
 import com.huatech.mall.mapper.resource.ResourceMapper;
 import com.huatech.mall.param.resource.ResourceParam;
+import com.huatech.mall.res.resource.ResourceList;
+import com.huatech.mall.res.resource.ResourceQueryRes;
 import com.huatech.mall.resource.IResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,8 +70,10 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Long> impleme
 
 
     @Override
-    public List<Resource> findResourcesList(ResourceParam param) {
-        PageHelper.startPage(param.getPage(),param.getSize());
-        return resourceMapper.findResourcesList(param);
+    public ResourceQueryRes findResourcesList(ResourceParam param) {
+        PageHelper.startPage(param.getPage(), param.getSize());
+        List<ResourceList> resourcesList = resourceMapper.findResourcesList(param);
+        PageInfo<ResourceList> pageInfo = new PageInfo<>(resourcesList);
+        return new ResourceQueryRes(pageInfo.getTotal(), pageInfo.getList());
     }
 }
