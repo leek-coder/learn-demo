@@ -30,15 +30,15 @@ public class TreeNode {
      */
     private int level;
     private TreeNode parent;
-    private String sourceKey;
+    private String icon;
     private String sourceUrl;
 
-    public String getSourceKey() {
-        return sourceKey;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setSourceKey(String sourceKey) {
-        this.sourceKey = sourceKey;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getSourceUrl() {
@@ -57,7 +57,7 @@ public class TreeNode {
         this.name = obj.getName();
         this.parentId = obj.getParentId();
         this.orderNum = obj.getOrderNum();
-        this.sourceKey = obj.getSourceKey();
+        this.icon = obj.getIcon();
         this.sourceUrl = obj.getSourceUrl();
     }
 

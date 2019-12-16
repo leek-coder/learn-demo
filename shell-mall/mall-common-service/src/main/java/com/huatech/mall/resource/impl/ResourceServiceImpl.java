@@ -48,7 +48,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Long> impleme
             }
             resource.setDescription(entity.getDescription());
             resource.setLevel(entity.getLevel());
-            resource.setIsHide(entity.getIsHide());
+            resource.setIcon(entity.getIcon());
             resource.setName(entity.getName());
             resource.setParentId(entity.getParentId());
             resource.setSourceKey(entity.getSourceKey());

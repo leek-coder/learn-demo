@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.huatech.mall.common.constants.ApiBaseConstants;
 import com.huatech.mall.common.enums.ApiBaseErrorCore;
 import com.huatech.mall.common.exception.ExceptionCustomer;
@@ -18,10 +19,7 @@ import com.huatech.mall.param.user.LoginParam;
 import com.huatech.mall.param.user.UserParam;
 import com.huatech.mall.remote.user.IAuthUserFeignService;
 import com.huatech.mall.remote.user.request.UserTokenReq;
-import com.huatech.mall.res.user.LoginUserRes;
-import com.huatech.mall.res.user.MenusRes;
-import com.huatech.mall.res.user.UserResourcesRes;
-import com.huatech.mall.res.user.UserRoleRes;
+import com.huatech.mall.res.user.*;
 import com.huatech.mall.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -73,8 +71,6 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
             if (user == null) {
                 throw new ExceptionCustomer(ApiBaseErrorCore.USER_NOT_EXISTS);
             }
-            user.setAddress(entity.getAddress());
-            user.setBirthday(entity.getBirthday());
             user.setEmail(entity.getEmail());
             user.setNickName(entity.getNickName());
             user.setLocked(entity.getLocked());
@@ -89,7 +85,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
             }
             User user1 = userMapper.findUserByPhone(entity.getTelephone());
             if (user1 != null) {
-                throw new ExceptionCustomer(ApiBaseErrorCore.USER_EXISTS);
+                throw new ExceptionCustomer(ApiBaseErrorCore.PHONE_EXISTS);
             }
             entity.setCreateTime(new Date());
             entity.setLocked(ApiBaseConstants.NOT_LOCKED);
@@ -109,9 +105,10 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
      * @return
      */
     @Override
-    public List<User> findUserList(UserParam userParam) {
+    public UserQueryRes findUserList(UserParam userParam) {
         PageHelper.startPage(userParam.getPage(), userParam.getSize());
-        return userMapper.findUserList(userParam);
+        PageInfo pageInfo = new PageInfo(userMapper.findUserList(userParam));
+        return UserQueryRes.builder().total(pageInfo.getTotal()).users(pageInfo.getList()).build();
     }
 
     /**
@@ -158,9 +155,10 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
     }
 
     @Override
-    public List<MenusRes> findRoleMenus(Long roleId) {
+    public List<MenusRes> findRoleMenus(Long userId) {
+        UserRoleRes roleRes = findUserRoles(userId);
         //查询所有的角色权限
-        List<UserResourcesRes> resList = userMapper.findRoleResources(roleId);
+        List<UserResourcesRes> resList = userMapper.findRoleResources(roleRes.getRid());
         List<ITreeNode> list = new ArrayList<>();
         resList.forEach(e -> {
             list.add(e);
@@ -170,10 +168,24 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
         SimplePropertyPreFilter filter = new SimplePropertyPreFilter();
         filter.getExcludes().add("parent");
         List<MenusRes> menusRes = JSONArray.parseArray(JSONObject.toJSONString(tree1, filter), MenusRes.class);
-
-        return menusRes;
+        return menusRes.stream().sorted(Comparator.comparing(MenusRes::getOrderNum)).collect(Collectors.toList());
 
     }
 
 
+    /**
+     * 删除用户  逻辑删除
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public int delete(Long userId) {
+        User user = find(userId);
+        if (null == user) {
+            throw new ExceptionCustomer(ApiBaseErrorCore.USER_NOT_EXISTS);
+        }
+        user.setDeleteStatus(ApiBaseConstants.HAD_DELETE_STATUS);
+        return updateByPrimaryKey(user);
+    }
 }

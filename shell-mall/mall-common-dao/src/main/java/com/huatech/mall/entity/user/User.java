@@ -36,11 +36,6 @@ public class User {
      */
     private Integer sex;
 
-    /**
-     * 
-     * 表字段:address
-     */
-    private String address;
 
     /**
      * 
@@ -48,12 +43,6 @@ public class User {
      */
     private String telephone;
 
-    /**
-     * 
-     * 表字段:birthday
-     */
-    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
-    private Date birthday;
 
     /**
      * 
@@ -164,21 +153,9 @@ public class User {
         this.sex = sex;
     }
 
-    /**
-     * 获取
-     * @return address String
-     */
-    public String getAddress() {
-        return address;
-    }
 
-    /**
-     * 设置
-     * @param address 
-     */
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
-    }
+
+
 
     /**
      * 获取
@@ -196,21 +173,6 @@ public class User {
         this.telephone = telephone == null ? null : telephone.trim();
     }
 
-    /**
-     * 获取
-     * @return birthday Date
-     */
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    /**
-     * 设置
-     * @param birthday 
-     */
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
 
     /**
      * 获取

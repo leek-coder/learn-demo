@@ -4,6 +4,8 @@ import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.common.utils.BeanValidator;
 import com.huatech.mall.entity.user.User;
 import com.huatech.mall.param.user.UserParam;
+import com.huatech.mall.res.user.UserList;
+import com.huatech.mall.res.user.UserQueryRes;
 import com.huatech.mall.user.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,11 +49,18 @@ public class UserManagementController {
      * @param id
      * @return
      */
-    @PostMapping(value = "/delete/{id}")
+    @GetMapping(value = "/delete/{id}")
     @ApiOperation(value = "删除用户", notes = "根据用户id标示删除用户")
     public ResponseResult delete(@PathVariable("id") Long id) {
         userService.delete(id);
         return ResponseResult.success();
+    }
+
+    @GetMapping(value = "/info/{id}")
+    @ApiOperation(value = "获取用户信息", notes = "根据用户id获取用户信息")
+    public ResponseResult info(@PathVariable("id") Long id) {
+        User user = userService.find(id);
+        return ResponseResult.success(user);
     }
 
 
@@ -59,8 +68,8 @@ public class UserManagementController {
     @ApiOperation(value = "查询用户列表", notes = "查询系统所有符合条件的用户")
     public ResponseResult list(UserParam userParam) {
         log.info("=========query===============");
-        List<User> users = userService.findUserList(userParam);
-        return ResponseResult.success(users);
+        UserQueryRes query = userService.findUserList(userParam);
+        return ResponseResult.success(query);
     }
 
 

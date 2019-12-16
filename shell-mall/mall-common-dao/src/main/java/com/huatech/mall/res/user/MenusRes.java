@@ -20,8 +20,9 @@ public class MenusRes {
      * 父节点id
      */
     private String parentId;
-    private String sourceKey;
+    private String icon;
     private String sourceUrl;
+    private Integer orderNum;
     private List<MenusRes> children;
 
 

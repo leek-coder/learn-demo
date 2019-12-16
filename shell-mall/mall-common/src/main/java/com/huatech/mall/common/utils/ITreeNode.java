@@ -34,11 +34,11 @@ public interface ITreeNode {
      Integer getOrderNum();
 
     /**
-     * 资源key
+     * 资源icon
      *
      * @return
      */
-     String getSourceKey();
+     String getIcon();
 
     /**
      * 资源url

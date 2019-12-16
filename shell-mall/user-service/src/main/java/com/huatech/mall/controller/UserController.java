@@ -67,8 +67,7 @@ public class UserController extends BaseController {
     @GetMapping(value = "/menus")
     public ResponseResult menus(HttpServletRequest servletRequest) {
         final JwtUser userInfo = getUserInfo(servletRequest);
-        UserRoleRes roleRes = userService.findUserRoles(userInfo.getId());
-        List<MenusRes> roleMenus = userService.findRoleMenus(roleRes.getRid());
+        List<MenusRes> roleMenus = userService.findRoleMenus(userInfo.getId());
         return ResponseResult.success(roleMenus);
     }
 
@@ -83,8 +82,8 @@ public class UserController extends BaseController {
 
     @ApiOperation(value = "获取角色所有的资源权限列表", notes = "获取角色所有的资源权限列表")
     @GetMapping(value = "/resources", consumes = "application/json")
-    public ResponseResult getResources(HttpServletRequest request, Long roleId) {
-        List<MenusRes> roleMenus = userService.findRoleMenus(roleId);
+    public ResponseResult getResources(HttpServletRequest request, Long userId) {
+        List<MenusRes> roleMenus = userService.findRoleMenus(userId);
         return ResponseResult.success(roleMenus);
     }
 

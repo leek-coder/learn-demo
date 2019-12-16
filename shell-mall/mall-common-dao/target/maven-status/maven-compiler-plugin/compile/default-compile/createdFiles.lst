@@ -3,6 +3,7 @@ com/huatech/mall/entity/resource/Resource.class
 com/huatech/mall/entity/user/User.class
 com/huatech/mall/mapper/role/RoleMapper.class
 com/huatech/mall/mapper/user/UserMapper.class
+com/huatech/mall/res/user/LoginUserRes$LoginUserResBuilder.class
 com/huatech/mall/param/user/LoginParam.class
 com/huatech/mall/entity/role/Role.class
 com/huatech/mall/entity/address/Address.class

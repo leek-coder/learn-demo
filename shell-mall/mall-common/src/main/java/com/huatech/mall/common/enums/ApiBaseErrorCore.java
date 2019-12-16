@@ -12,6 +12,7 @@ public enum ApiBaseErrorCore {
     USER_NOT_EXISTS("用户不存在", 1000),
     USER_EXISTS("用户已存在", 1001),
     PASSWORD_ERROR("密码错误", 1002),
+    PHONE_EXISTS("手机号已存在", 1003),
 
 
     ROLE_NOT_EXISTS("角色不存在", 2000),

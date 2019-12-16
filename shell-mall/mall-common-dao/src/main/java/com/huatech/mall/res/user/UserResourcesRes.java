@@ -19,9 +19,8 @@ public class UserResourcesRes implements Serializable, ITreeNode {
     private String name;
     private Integer parentId;
     private Integer type;
-    private Integer level;
     private Integer sort;
-    private String sourceKey;
+    private String icon;
     private String sourceUrl;
     List<UserResourcesRes> children;
     @Override
@@ -32,12 +31,12 @@ public class UserResourcesRes implements Serializable, ITreeNode {
 
     @Override
     public Integer getOrderNum() {
-        return this.level;
+        return this.sort;
     }
 
     @Override
-    public String getSourceKey() {
-        return this.sourceKey;
+    public String getIcon() {
+        return this.icon;
     }
 
     @Override

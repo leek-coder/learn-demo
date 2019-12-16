@@ -1,16 +1,12 @@
 package com.huatech.mall.user;
 
 import com.huatech.mall.common.service.IBaseService;
-import com.huatech.mall.common.utils.TreeNode;
 import com.huatech.mall.entity.user.User;
 import com.huatech.mall.param.user.LoginParam;
 import com.huatech.mall.param.user.UserParam;
-import com.huatech.mall.res.user.LoginUserRes;
-import com.huatech.mall.res.user.MenusRes;
-import com.huatech.mall.res.user.UserRoleRes;
+import com.huatech.mall.res.user.*;
 
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -27,7 +23,7 @@ public interface IUserService extends IBaseService<User, Long> {
      * @param userParam
      * @return
      */
-    List<User> findUserList(UserParam userParam);
+    UserQueryRes findUserList(UserParam userParam);
 
     /**
      * @description: 用户登陆
@@ -50,8 +46,8 @@ public interface IUserService extends IBaseService<User, Long> {
     /**
      * 查询角色权限树
      *
-     * @param roleId
+     * @param UserId
      * @return
      */
-    List<MenusRes> findRoleMenus(Long roleId);
+    List<MenusRes> findRoleMenus(Long UserId);
 }
