@@ -49,7 +49,7 @@ public class ControllerAspect {
     @Autowired
     private JwtUtils jwtUtils;
 
-    @Pointcut(value = "execution(* com.huatech.mall.controller.*.*(..))")
+    @Pointcut(value = "execution(* com.huatech.mall.controller.*.*(..)) && !execution(* com.huatech.mall.controller.LogController.*(..))")
     public void pointCut() {
     }
 

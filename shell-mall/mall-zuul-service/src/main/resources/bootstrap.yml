@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: local
 #配置应用名称
   application:
     name: zuul-server

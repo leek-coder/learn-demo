@@ -21,7 +21,6 @@ public class ZuulServiceApplication {
         SpringApplication.run(ZuulServiceApplication.class, args);
     }
 
-
     /**
      * 注册zuul拦截器
      * @return

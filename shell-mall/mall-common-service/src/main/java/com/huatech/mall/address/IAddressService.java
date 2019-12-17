@@ -9,5 +9,7 @@ import com.huatech.mall.entity.address.Address;
  * @author like
  * @date 2019-12-02 9:32 下午
  **/
-public interface IAddressService extends IBaseService<Address,Long> {
+public interface IAddressService extends IBaseService<Address, Long> {
+
+
 }

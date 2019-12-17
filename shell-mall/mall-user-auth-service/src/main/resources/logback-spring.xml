@@ -15,7 +15,7 @@
     <springProperty scope="context" name="env" source="spring.profiles.active" defaultValue="dev"/>
 
 
-    <property name="LOG_FILE" value="./logs/user-service.log"/>
+    <property name="LOG_FILE" value="./logs/user-auth-service.log"/>
 
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

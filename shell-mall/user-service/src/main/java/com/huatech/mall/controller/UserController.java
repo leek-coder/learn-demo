@@ -60,7 +60,7 @@ public class UserController extends BaseController {
     public ResponseResult logout(HttpServletRequest servletRequest) {
         final JwtUser userInfo = getUserInfo(servletRequest);
         cacheService.remove(USER_PREFIX + userInfo.getId());
-        return ResponseResult.success();
+        return ResponseResult.success("退出成功");
     }
 
     @ApiOperation(value = "获取系统权限数", notes = "获取系统权限数")

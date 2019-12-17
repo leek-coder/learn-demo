@@ -16,17 +16,14 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, user_name userName, nick_name nickName, sex, telephone, password, delete_status status,
-    email, locked, description, create_time createTime, update_time updateTime
+    id, user_name , nick_name, sex, telephone, password, delete_status status,
+    email, locked, description, create_time, update_time
   </sql>
 
-    <sql id="Base_Column_List01">
-    id, user_name , nick_name , sex, telephone, password, delete_status ,
-    email, locked, description, create_time , update_time
-  </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List01"/>
+        <include refid="Base_Column_List"/>
         from t_user
         where id = #{id,jdbcType=BIGINT}
     </select>
@@ -171,7 +168,8 @@
     <select id="findUserList" parameterType="com.huatech.mall.param.user.UserParam"
             resultType="com.huatech.mall.res.user.UserList">
         select
-        <include refid="Base_Column_List"/>
+        id, user_name userName, nick_name nickName, sex, telephone, delete_status status,
+        email, create_time createTime
         from t_user
 
         <where>

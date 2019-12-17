@@ -31,7 +31,7 @@ public class ZuulCustomerFilter extends ZuulFilter {
     @Value("${token.header}")
     private String tokenHeader;
 
-    private static  final  Integer SUCCESS_CODE = 200;
+    private static final Integer SUCCESS_CODE = 200;
 
     @Autowired
     private IUserAuthFeignService userAuthFeignService;
@@ -64,7 +64,7 @@ public class ZuulCustomerFilter extends ZuulFilter {
         if (!flag) {
             // 从请求head中获得token
             String requestHeaderToken = request.getHeader(tokenHeader);
-            logger.info("=====requestHeaderToken===" + requestHeaderToken);
+            logger.info("=====requestToken:{}", requestHeaderToken);
             if (StringUtils.isBlank(requestHeaderToken)) {
                 context.setSendZuulResponse(false);
                 context.setResponseBody(JsonUtils.toString(ResponseResult.failure(4004, "token不能为空")));
