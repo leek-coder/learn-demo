@@ -148,6 +148,7 @@
         from t_user
         <where>
             user_name = #{userName}
+            and delete_status = 0
         </where>
 
     </select>

@@ -51,4 +51,9 @@ public interface IUserService extends IBaseService<User, Long> {
      */
     List<MenusRes> findRoleMenus(Long UserId);
 
+    /**
+     * 恢复用户状态
+     * @param id
+     */
+    void recovery(Long id);
 }

@@ -71,6 +71,12 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
             if (user == null) {
                 throw new ExceptionCustomer(ApiBaseErrorCore.USER_NOT_EXISTS);
             }
+            if (!entity.getTelephone().equals(user.getTelephone())) {
+                User user1 = userMapper.findUserByPhone(entity.getTelephone());
+                if (user1 != null) {
+                    throw new ExceptionCustomer(ApiBaseErrorCore.PHONE_EXISTS);
+                }
+            }
             user.setEmail(entity.getEmail());
             user.setNickName(entity.getNickName());
             user.setLocked(entity.getLocked());
@@ -172,6 +178,15 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
 
     }
 
+    @Override
+    public void recovery(Long id) {
+        User user = find(id);
+        if (null == user) {
+            throw new ExceptionCustomer(ApiBaseErrorCore.USER_NOT_EXISTS);
+        }
+        user.setDeleteStatus(ApiBaseConstants.NOT_DELETE_STATUS);
+        updateByPrimaryKey(user);
+    }
 
 
     /**

@@ -125,13 +125,13 @@
         from t_log
         <where>
             <if test="userName != null and userName !='' ">
-                user_name = #{userName,jdbcType=VARCHAR},
+                user_name like concat(#{userName},'%')
             </if>
             <if test="uri != null and uri !=''">
-                and uri = #{uri,jdbcType=VARCHAR},
+               and uri like concat(#{uri},'%')
             </if>
             <if test="status != null">
-                and status = #{status,jdbcType=INTEGER},
+                and status = #{status,jdbcType=INTEGER}
             </if>
 
         </where>

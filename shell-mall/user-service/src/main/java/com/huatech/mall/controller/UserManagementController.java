@@ -58,6 +58,14 @@ public class UserManagementController {
         return ResponseResult.success();
     }
 
+
+    @GetMapping(value = "/recovery/{id}")
+    @ApiOperation(value = "恢复用户状态", notes = "根据用户id标示恢复用户")
+    public ResponseResult recovery(@PathVariable("id") Long id) {
+        log.info("====恢复用户请求参数:{}=====", id);
+        userService.recovery(id);
+        return ResponseResult.success();
+    }
     @GetMapping(value = "/info/{id}")
     @ApiOperation(value = "获取用户信息", notes = "根据用户id获取用户信息")
     public ResponseResult info(@PathVariable("id") Long id) {
