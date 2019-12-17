@@ -8,6 +8,8 @@ import com.huatech.mall.common.enums.ApiBaseErrorCore;
 import com.huatech.mall.common.exception.ExceptionCustomer;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -22,6 +24,7 @@ import java.util.*;
  */
 public class BeanValidator {
 
+    private static  final Logger logger = LoggerFactory.getLogger(BeanValidator.class);
     private static ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 
     public static <T> Map<String, String> validate(T t, Class... groups) {

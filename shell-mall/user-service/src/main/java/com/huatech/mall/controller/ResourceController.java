@@ -36,7 +36,9 @@ public class ResourceController {
     public ResponseResult save(@Valid @RequestBody Resource resource) {
         //验证参数的合法性
         BeanValidator.check(resource);
+        log.info("=========创建资源:{}", resource.toString());
         //插入系统资源
+
         resourceService.insert(resource);
         return ResponseResult.success();
     }
@@ -58,7 +60,7 @@ public class ResourceController {
     @GetMapping(value = "/query")
     @ApiOperation(value = "查询资源列表", notes = "查询系统所有符合条件的资源")
     public ResponseResult list(ResourceParam param) {
-        log.info("=========query===============");
+        log.info("=========查询资源列表:{}", param.toString());
         ResourceQueryRes resourcesList = resourceService.findResourcesList(param);
         return ResponseResult.success(resourcesList);
     }
@@ -67,7 +69,7 @@ public class ResourceController {
     @PostMapping(value = "/update")
     @ApiOperation(value = "资源信息修改", notes = "资源信息修改")
     public ResponseResult update(@RequestBody Resource resource) {
-        log.info("=========资源信息修改===========");
+        log.info("=========资源信息修改:{}", resource.toString());
         resourceService.insert(resource);
         return ResponseResult.success();
     }

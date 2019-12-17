@@ -7,6 +7,12 @@ spring:
 #配置服务端口
 server:
   port: 8100
+# 日志位置
+logging:
+  file: ./
+  #配置sql打印
+#  level:
+#    com.huatech.mall.mapper.*: debug
 
 #本地环境
 ---

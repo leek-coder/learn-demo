@@ -4,7 +4,6 @@ import com.huatech.mall.common.base.BaseController;
 import com.huatech.mall.common.jwt.JwtUser;
 import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.common.utils.ICacheService;
-import com.huatech.mall.entity.user.User;
 import com.huatech.mall.param.user.LoginParam;
 import com.huatech.mall.res.user.LoginUserRes;
 import com.huatech.mall.res.user.MenusRes;
@@ -50,7 +49,7 @@ public class UserController extends BaseController {
     @PostMapping(value = "/login")
     @ApiOperation(value = "用户登陆", notes = "用户登陆")
     public ResponseResult login(@Valid @RequestBody LoginParam loginParam) {
-
+        log.info("=========用户登陆:{}", loginParam.toString());
         LoginUserRes login = userService.login(loginParam);
         return ResponseResult.success(login);
     }
@@ -76,6 +75,7 @@ public class UserController extends BaseController {
     @ApiOperation(value = "获取用户所有角色", notes = "获取用户所有角色")
     @GetMapping(value = "/roles")
     public ResponseResult getRoles(HttpServletRequest request, Long userId) {
+
         UserRoleRes roleRes = userService.findUserRoles(userId);
         return ResponseResult.success(roleRes);
     }

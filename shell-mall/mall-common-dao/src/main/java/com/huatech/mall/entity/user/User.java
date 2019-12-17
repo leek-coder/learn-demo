@@ -285,4 +285,22 @@ public class User {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", sex=" + sex +
+                ", telephone='" + telephone + '\'' +
+                ", password='" + password + '\'' +
+                ", deleteStatus=" + deleteStatus +
+                ", email='" + email + '\'' +
+                ", locked=" + locked +
+                ", description='" + description + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

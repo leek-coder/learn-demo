@@ -38,6 +38,7 @@ public class UserManagementController {
     public ResponseResult save(@Valid @RequestBody User user) {
         //验证参数的合法性
         BeanValidator.check(user);
+        log.info("======创建用户请求参数====={}", user.toString());
         //插入系统用户
         userService.insert(user);
         return ResponseResult.success();
@@ -52,6 +53,7 @@ public class UserManagementController {
     @GetMapping(value = "/delete/{id}")
     @ApiOperation(value = "删除用户", notes = "根据用户id标示删除用户")
     public ResponseResult delete(@PathVariable("id") Long id) {
+        log.info("====删除用户请求参数:{}=====", id);
         userService.delete(id);
         return ResponseResult.success();
     }
@@ -59,15 +61,16 @@ public class UserManagementController {
     @GetMapping(value = "/info/{id}")
     @ApiOperation(value = "获取用户信息", notes = "根据用户id获取用户信息")
     public ResponseResult info(@PathVariable("id") Long id) {
+        log.info("====获取用户嘻嘻请求参数:{}=====", id);
         User user = userService.find(id);
         return ResponseResult.success(user);
     }
 
 
     @GetMapping(value = "/query")
-    @ApiOperation(value = "查询用户列表", notes = "查询系统所有符合条件的用户")
+    @ApiOperation(value = "查询用户列表", notes = "查询系统所有符合条件的用户", tags = "查询用户列表")
     public ResponseResult list(UserParam userParam) {
-        log.info("=========query===============");
+        log.info("=========查询用户列表:{}", userParam.toString());
         UserQueryRes query = userService.findUserList(userParam);
         return ResponseResult.success(query);
     }
@@ -76,7 +79,7 @@ public class UserManagementController {
     @PostMapping(value = "/update")
     @ApiOperation(value = "用户信息修改", notes = "用户信息修改")
     public ResponseResult update(@RequestBody User user) {
-        log.info("=========用户信息修改===========");
+        log.info("=========用户信息修改:{}", user.toString());
         userService.insert(user);
         return ResponseResult.success();
     }
