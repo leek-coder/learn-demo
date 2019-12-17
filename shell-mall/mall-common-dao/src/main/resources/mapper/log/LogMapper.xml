@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huatech.mall.mapper.log.LogMapper">
+    <resultMap id="BaseResultMap" type="com.huatech.mall.entity.log.Log">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="uri" jdbcType="VARCHAR" property="uri"/>
+        <result column="operation" jdbcType="VARCHAR" property="operation"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="input" jdbcType="VARCHAR" property="input"/>
+        <result column="output" jdbcType="VARCHAR" property="output"/>
+        <result column="response_time" jdbcType="BIGINT" property="responseTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, user_name, uri, operation, ip, input, output, response_time, status, create_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_log
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.huatech.mall.entity.log.Log">
+    insert into t_log (id, user_name, uri, 
+      operation, ip, input, 
+      output, response_time, status, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{uri,jdbcType=VARCHAR}, 
+      #{operation,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{input,jdbcType=VARCHAR}, 
+      #{output,jdbcType=VARCHAR}, #{responseTime,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.huatech.mall.entity.log.Log">
+        insert into t_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="uri != null">
+                uri,
+            </if>
+            <if test="operation != null">
+                operation,
+            </if>
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="input != null">
+                input,
+            </if>
+            <if test="output != null">
+                output,
+            </if>
+            <if test="responseTime != null">
+                response_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="uri != null">
+                #{uri,jdbcType=VARCHAR},
+            </if>
+            <if test="operation != null">
+                #{operation,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="input != null">
+                #{input,jdbcType=VARCHAR},
+            </if>
+            <if test="output != null">
+                #{output,jdbcType=VARCHAR},
+            </if>
+            <if test="responseTime != null">
+                #{responseTime,jdbcType=BIGINT},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.huatech.mall.entity.log.Log">
+    update t_log
+    set user_name = #{userName,jdbcType=VARCHAR},
+      uri = #{uri,jdbcType=VARCHAR},
+      operation = #{operation,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      input = #{input,jdbcType=VARCHAR},
+      output = #{output,jdbcType=VARCHAR},
+      response_time = #{responseTime,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="findLogLists" parameterType="com.huatech.mall.param.log.LogParam"
+            resultType="com.huatech.mall.res.log.LogList">
+
+        select  id,user_name userName,uri,operation,ip,response_time responseTime, status,create_time createTime
+        from t_log
+        <where>
+            <if test="userName != null and userName !='' ">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="uri != null and uri !=''">
+                and uri = #{uri,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                and status = #{status,jdbcType=INTEGER},
+            </if>
+
+        </where>
+
+    </select>
+</mapper>
