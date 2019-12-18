@@ -63,7 +63,7 @@ public class UserController extends BaseController {
         return ResponseResult.success("退出成功");
     }
 
-    @ApiOperation(value = "获取系统权限数", notes = "获取系统权限数")
+    @ApiOperation(value = "获取系统权限树", notes = "获取系统权限树")
     @GetMapping(value = "/menus")
     public ResponseResult menus(HttpServletRequest servletRequest) {
         final JwtUser userInfo = getUserInfo(servletRequest);

@@ -47,7 +47,7 @@ public class RoleController {
      * @param id
      * @return
      */
-    @PostMapping(value = "/delete/{id}")
+    @GetMapping(value = "/delete/{id}")
     @ApiOperation(value = "删除角色", notes = "根据用户id标示删除角色")
     public ResponseResult delete(@PathVariable("id") Long id) {
         roleService.delete(id);
@@ -69,6 +69,14 @@ public class RoleController {
         log.info("=========角色信息修改===========");
         roleService.insert(role);
         return ResponseResult.success();
+    }
+
+    @GetMapping(value = "/info/{id}")
+    @ApiOperation(value = "获取角色详情", notes = "根据角色id获取角色信息")
+    public ResponseResult info(@PathVariable("id") Long id) {
+        log.info("====获取角色信息请求参数:{}=====", id);
+        Role role = roleService.find(id);
+        return ResponseResult.success(role);
     }
 
 }

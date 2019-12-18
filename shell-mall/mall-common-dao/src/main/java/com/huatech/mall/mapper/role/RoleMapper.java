@@ -18,7 +18,7 @@ public interface RoleMapper extends IBaseMapper<Role, Long> {
      * @param roleName
      * @return
      */
-    Role findRoleByName(String roleName);
+    List<Role> findRoleByName(String roleName);
 
     /**
      * 根据角色key查询实体
@@ -26,12 +26,29 @@ public interface RoleMapper extends IBaseMapper<Role, Long> {
      * @param key
      * @return
      */
-    Role findRoleByKey(String key);
+    List<Role> findRoleByKey(String key);
 
     /**
      * 根据条件查询role列表
+     *
      * @param roleParam
      * @return
      */
     List<RoleQuery> findRoleList(RoleParam roleParam);
+
+    /**
+     * 根据roleId解除用户-角色关联
+     *
+     * @param roleId
+     * @return
+     */
+    int deleteUserRoleByRoleId(Long roleId);
+
+    /**
+     * 根据roleId解除角色-资源关联
+     *
+     * @param roleId
+     * @return
+     */
+    int deleteRoleResourceByRoleId(Long roleId);
 }

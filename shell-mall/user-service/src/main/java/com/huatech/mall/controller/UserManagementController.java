@@ -69,7 +69,7 @@ public class UserManagementController {
     @GetMapping(value = "/info/{id}")
     @ApiOperation(value = "获取用户信息", notes = "根据用户id获取用户信息")
     public ResponseResult info(@PathVariable("id") Long id) {
-        log.info("====获取用户嘻嘻请求参数:{}=====", id);
+        log.info("====获取用户信息请求参数:{}=====", id);
         User user = userService.find(id);
         return ResponseResult.success(user);
     }

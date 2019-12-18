@@ -15,6 +15,8 @@
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="role_key" jdbcType="VARCHAR" property="roleKey"/>
         <collection property="children" column="id"
                     select="com.huatech.mall.mapper.resource.ResourceMapper.selectResourceByRoleId">
         </collection>
@@ -110,7 +112,7 @@
         from t_role
         <where>
 
-            name = #{roleName} and status = 1
+            name = #{roleName}
 
         </where>
 
@@ -123,7 +125,7 @@
         <include refid="Base_Column_List"/>
         from t_role
         <where>
-            role_key = #{key} and status = 1
+            role_key = #{key}
         </where>
 
     </select>
@@ -131,15 +133,25 @@
     <!--    先查出来顶级父资源-->
     <select id="findRoleList" parameterType="com.huatech.mall.param.role.RoleParam" resultMap="BaseResultMap_01"
     >
-        select  distinct r.id, r.name,r.description
-        from t_role r,
+        select distinct r.id, r.name,r.description,r.create_time ,r.role_key
+        from t_role r left join
         t_role_resource rs
-        <where>
-            r.id = rs.r_id
-            <if test="name !=null and name !=''">
-                and r.name = #{name}
-            </if>
-        </where>
+        on
+        r.id = rs.r_id
+        <if test="name !=null and name !=''">
+            and r.name = #{name}
+        </if>
 
     </select>
+
+    <delete id="deleteUserRoleByRoleId" parameterType="java.lang.Long">
+
+        delete from t_user_role
+        where  r_id = #{roleId}
+    </delete>
+
+    <delete id="deleteRoleResourceByRoleId" parameterType="java.lang.Long">
+        delete from t_role_resource
+        where r_id = #{roleId}
+    </delete>
 </mapper>
