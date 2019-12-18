@@ -10,6 +10,16 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
+
+    <resultMap id="BaseResultMap_01" type="com.huatech.mall.res.role.RoleQuery">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <collection property="children" column="id"
+                    select="com.huatech.mall.mapper.resource.ResourceMapper.selectResourceByRoleId">
+        </collection>
+    </resultMap>
+
     <sql id="Base_Column_List">
     id, name, role_key, status, description, create_time, update_time
   </sql>
@@ -113,21 +123,23 @@
         <include refid="Base_Column_List"/>
         from t_role
         <where>
-            role_key = #{key}   and status = 1
+            role_key = #{key} and status = 1
         </where>
 
     </select>
 
-
-    <select id="findRoleList" parameterType="com.huatech.mall.param.role.RoleParam" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from t_role
+    <!--    先查出来顶级父资源-->
+    <select id="findRoleList" parameterType="com.huatech.mall.param.role.RoleParam" resultMap="BaseResultMap_01"
+    >
+        select  distinct r.id, r.name,r.description
+        from t_role r,
+        t_role_resource rs
         <where>
-
+            r.id = rs.r_id
             <if test="name !=null and name !=''">
-                name = #{name}
+                and r.name = #{name}
             </if>
         </where>
+
     </select>
 </mapper>

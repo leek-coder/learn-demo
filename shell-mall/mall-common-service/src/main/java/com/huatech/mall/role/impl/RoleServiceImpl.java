@@ -7,8 +7,11 @@ import com.huatech.mall.common.exception.ExceptionCustomer;
 import com.huatech.mall.common.mapper.IBaseMapper;
 import com.huatech.mall.common.service.impl.BaseServiceImpl;
 import com.huatech.mall.entity.role.Role;
+import com.huatech.mall.mapper.resource.ResourceMapper;
 import com.huatech.mall.mapper.role.RoleMapper;
 import com.huatech.mall.param.role.RoleParam;
+import com.huatech.mall.res.role.ResourceQuery;
+import com.huatech.mall.res.role.RoleQuery;
 import com.huatech.mall.role.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,9 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements IRol
     @Autowired
     private RoleMapper roleMapper;
 
+    @Autowired
+    private ResourceMapper resourceMapper;
+
     @Override
     public IBaseMapper<Role, Long> getBaseMapper() {
         return this.roleMapper;
@@ -40,9 +46,24 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements IRol
      * @return
      */
     @Override
-    public List<Role> findRoleList(RoleParam param) {
+    public List<RoleQuery> findRoleList(RoleParam param) {
         PageHelper.startPage(param.getPage(), param.getSize());
-        List<Role> roles = roleMapper.findRoleList(param);
+        //先查出最顶级的权限
+        List<RoleQuery> roles = roleMapper.findRoleList(param);
+        roles.forEach(e -> {
+            List<ResourceQuery> children = e.getChildren();
+            children.forEach(e1 -> {
+                //查询第二层数据
+                List<ResourceQuery> resourceQueries = resourceMapper.selectResourceByParentId(e1.getId(), e.getId());
+                e1.setChildren(resourceQueries);
+                resourceQueries.forEach(e2 -> {
+                    List<ResourceQuery> resource = resourceMapper.selectResourceByParentId(e2.getId(), e.getId());
+                    e2.setChildren(resource);
+                });
+            });
+
+        });
+
         return roles;
     }
 

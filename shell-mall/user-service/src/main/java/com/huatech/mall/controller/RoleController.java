@@ -4,6 +4,7 @@ import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.common.utils.BeanValidator;
 import com.huatech.mall.entity.role.Role;
 import com.huatech.mall.param.role.RoleParam;
+import com.huatech.mall.res.role.RoleQuery;
 import com.huatech.mall.role.IRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -56,9 +57,9 @@ public class RoleController {
 
     @GetMapping(value = "/query")
     @ApiOperation(value = "查询角色列表", notes = "查询系统所有符合条件的角色")
-    public ResponseResult list(@RequestBody RoleParam param) {
+    public ResponseResult list(RoleParam param) {
         log.info("=========query===============");
-        List<Role> roles = roleService.findRoleList(param);
+        List<RoleQuery> roles = roleService.findRoleList(param);
         return ResponseResult.success(roles);
     }
 

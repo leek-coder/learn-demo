@@ -15,6 +15,15 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
+
+    <resultMap id="BaseResultMap_01" type="com.huatech.mall.res.role.ResourceQuery">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="authName"/>
+        <result column="source_url" jdbcType="VARCHAR" property="path"/>
+        <collection property="children" column="id"
+                    select="selectResourceByParentId">
+        </collection>
+    </resultMap>
     <sql id="Base_Column_List">
     id, name, parent_id, type, icon, level, sort, source_key, source_url, description,
     create_time, update_time
@@ -148,5 +157,31 @@
         select
         <include refid="Base_Column_List01"/>
         from t_resource
+    </select>
+
+
+    <select id="selectResourceByRoleId" resultType="com.huatech.mall.res.role.ResourceQuery"
+            parameterType="java.lang.Long">
+        select re.id id,re.`name` authName, re.source_url path , re.parent_id parentId
+        from
+        t_role_resource rs,
+        t_resource re
+        <where>
+            rs.r_id = #{id}
+            and rs.s_id = re.id and re.parent_id = 0
+        </where>
+    </select>
+
+    <select id="selectResourceByParentId" parameterType="java.util.Map"
+            resultType="com.huatech.mall.res.role.ResourceQuery">
+        select re.id id,re.`name` authName, re.source_url path , re.parent_id parentId
+        from t_resource re ,t_role_resource rrs
+        <where>
+            parent_id = #{parentId}
+            and
+            rrs.r_id = #{roleId}
+            and rrs.s_id = re.id
+        </where>
+
     </select>
 </mapper>
