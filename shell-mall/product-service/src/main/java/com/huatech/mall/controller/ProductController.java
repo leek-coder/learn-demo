@@ -1,16 +1,16 @@
 package com.huatech.mall.controller;
 
-import com.huatech.mall.address.IAddressService;
 import com.huatech.mall.common.response.ResponseResult;
-import com.huatech.mall.entity.address.Address;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.huatech.mall.feign.IUploadFeignService;
+import com.huatech.mall.param.product.ProductParam;
+import com.huatech.mall.product.IProductService;
+import com.huatech.mall.res.product.ProductQueryRes;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 商品控制器类
@@ -20,21 +20,30 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping(value = "/product")
-@RefreshScope
+@Slf4j
+@Api(value = "商品管理", tags = "商品操作接口")
 public class ProductController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     @Autowired
-    private IAddressService addressService;
+    private IUploadFeignService uploadFeignService;
+    @Autowired
+    private IProductService productService;
 
-
-    @RequestMapping(value = "/list")
-    public ResponseResult<Address> findAddress() {
-
-        Address address = addressService.find(12L);
-        return ResponseResult.success(address);
+    @PostMapping(value = "/upload")
+    @ApiOperation(value = "商品图片上传", notes = "商品图片上传")
+    public ResponseResult productUpload(MultipartFile file) {
+        log.info("======上传图片开始=======");
+        ResponseResult responseResult = uploadFeignService.uploadFile(file);
+        return responseResult;
     }
 
+
+    @GetMapping(value = "/list")
+    @ApiOperation(value = "查询商品列表", notes = "查询商品列表")
+    public ResponseResult bannerList(ProductParam param) {
+        ProductQueryRes product = productService.findProductList(param);
+        return ResponseResult.success(product);
+    }
 
 }

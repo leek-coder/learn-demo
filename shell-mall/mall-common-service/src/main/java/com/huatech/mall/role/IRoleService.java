@@ -22,4 +22,10 @@ public interface IRoleService extends IBaseService<Role, Long> {
      * @return
      */
     List<RoleQuery> findRoleList(RoleParam param);
+
+    /**
+     * 获取所有的角色
+     * @return
+     */
+    List<Role> findAll();
 }

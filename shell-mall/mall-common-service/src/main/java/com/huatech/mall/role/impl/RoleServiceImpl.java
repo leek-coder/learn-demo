@@ -142,7 +142,10 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements IRol
         roleMapper.deleteUserRoleByRoleId(roleId);
         roleMapper.deleteRoleResourceByRoleId(roleId);
         return super.delete(roleId);
+    }
 
-
+    @Override
+    public List<Role> findAll() {
+        return roleMapper.findAll();
     }
 }

@@ -51,4 +51,11 @@ public interface RoleMapper extends IBaseMapper<Role, Long> {
      * @return
      */
     int deleteRoleResourceByRoleId(Long roleId);
+
+    /**
+     * 查询所有的角色
+     * @return
+     */
+    List<Role> findAll();
+
 }

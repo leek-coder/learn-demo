@@ -20,6 +20,7 @@ public enum ApiBaseErrorCore {
     ROLE_KEY_EXISTS("角色key已存在", 2002),
     ADMIN_ROLE_NOT("超级管理员不能删除", 2003),
     RESOURCE_NOT_EXISTS("资源不存在", 3000),
+    PRODUCT_NOT_EXISTS("商品不存在", 3001),
 
 
     TOKEN_FAIL("Token验证失败", 4000),

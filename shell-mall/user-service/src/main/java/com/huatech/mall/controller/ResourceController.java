@@ -5,6 +5,7 @@ import com.huatech.mall.common.utils.BeanValidator;
 import com.huatech.mall.entity.resource.Resource;
 import com.huatech.mall.param.resource.ResourceParam;
 import com.huatech.mall.res.resource.ResourceQueryRes;
+import com.huatech.mall.res.user.MenusRes;
 import com.huatech.mall.resource.IResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -72,5 +73,14 @@ public class ResourceController {
         log.info("=========资源信息修改:{}", resource.toString());
         resourceService.insert(resource);
         return ResponseResult.success();
+    }
+
+
+    @GetMapping(value = "/tree")
+    @ApiOperation(value = "获取资源树", notes = "获取资源树")
+    public ResponseResult tree() {
+        log.info("=========获取所有的资源树");
+        List<MenusRes> roleMenus = resourceService.findTrees();
+        return ResponseResult.success(roleMenus);
     }
 }

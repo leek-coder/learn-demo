@@ -1,22 +1,34 @@
 package com.huatech.mall.resource.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.huatech.mall.common.enums.ApiBaseErrorCore;
 import com.huatech.mall.common.exception.ExceptionCustomer;
 import com.huatech.mall.common.mapper.IBaseMapper;
 import com.huatech.mall.common.service.impl.BaseServiceImpl;
+import com.huatech.mall.common.utils.ITreeNode;
+import com.huatech.mall.common.utils.Tree;
+import com.huatech.mall.common.utils.TreeNode;
 import com.huatech.mall.entity.resource.Resource;
 import com.huatech.mall.mapper.resource.ResourceMapper;
 import com.huatech.mall.param.resource.ResourceParam;
 import com.huatech.mall.res.resource.ResourceList;
 import com.huatech.mall.res.resource.ResourceQueryRes;
+import com.huatech.mall.res.user.MenusRes;
+import com.huatech.mall.res.user.UserResourcesRes;
 import com.huatech.mall.resource.IResourceService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 系统资源service实现
@@ -75,5 +87,30 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Long> impleme
         List<ResourceList> resourcesList = resourceMapper.findResourcesList(param);
         PageInfo<ResourceList> pageInfo = new PageInfo<>(resourcesList);
         return new ResourceQueryRes(pageInfo.getTotal(), pageInfo.getList());
+    }
+
+    /**
+     * 获取系统资源树
+     *
+     * @return
+     */
+    @Override
+    public List<MenusRes> findTrees() {
+
+        //查询系统所有的资源
+        List<ResourceList> resourcesList = resourceMapper.findResourcesList(new ResourceParam());
+        List<ITreeNode> list = new ArrayList<>();
+        resourcesList.forEach(e -> {
+            UserResourcesRes userResourcesRes = new UserResourcesRes();
+            BeanUtils.copyProperties(e, userResourcesRes);
+            list.add(userResourcesRes);
+        });
+        Tree tree = new Tree(list);
+        List<TreeNode> tree1 = tree.getTree();
+        SimplePropertyPreFilter filter = new SimplePropertyPreFilter();
+        filter.getExcludes().add("parent");
+        List<MenusRes> menusRes = JSONArray.parseArray(JSONObject.toJSONString(tree1, filter), MenusRes.class);
+        return menusRes.stream().sorted(Comparator.comparing(MenusRes::getOrderNum)).collect(Collectors.toList());
+
     }
 }

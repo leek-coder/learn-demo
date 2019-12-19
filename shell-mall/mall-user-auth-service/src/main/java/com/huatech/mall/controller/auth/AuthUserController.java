@@ -1,4 +1,4 @@
-package com.huatech.mall.controller;
+package com.huatech.mall.controller.auth;
 
 import com.huatech.mall.common.jwt.JwtUser;
 import com.huatech.mall.common.jwt.Token;

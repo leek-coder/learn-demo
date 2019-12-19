@@ -159,7 +159,6 @@
         from t_resource
     </select>
 
-
     <select id="selectResourceByRoleId" resultType="com.huatech.mall.res.role.ResourceQuery"
             parameterType="java.lang.Long">
         select re.id id,re.`name` authName, re.source_url path , re.parent_id parentId

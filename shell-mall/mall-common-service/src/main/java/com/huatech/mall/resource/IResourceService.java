@@ -4,6 +4,7 @@ import com.huatech.mall.common.service.IBaseService;
 import com.huatech.mall.entity.resource.Resource;
 import com.huatech.mall.param.resource.ResourceParam;
 import com.huatech.mall.res.resource.ResourceQueryRes;
+import com.huatech.mall.res.user.MenusRes;
 
 import java.util.List;
 
@@ -21,4 +22,11 @@ public interface IResourceService extends IBaseService<Resource, Long> {
      * @return
      */
     ResourceQueryRes findResourcesList(ResourceParam param);
+
+    /**
+     * 获取系统资源树
+     *
+     * @return
+     */
+    List<MenusRes> findTrees();
 }

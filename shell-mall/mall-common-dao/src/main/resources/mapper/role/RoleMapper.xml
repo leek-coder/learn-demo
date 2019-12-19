@@ -130,6 +130,13 @@
 
     </select>
 
+    <select id="findAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+
+        select
+        <include refid="Base_Column_List"/>
+        from t_role
+
+    </select>
     <!--    先查出来顶级父资源-->
     <select id="findRoleList" parameterType="com.huatech.mall.param.role.RoleParam" resultMap="BaseResultMap_01"
     >

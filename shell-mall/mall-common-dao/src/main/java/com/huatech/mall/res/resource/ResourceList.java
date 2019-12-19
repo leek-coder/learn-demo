@@ -13,7 +13,7 @@ import java.util.Date;
  * @date 2019-12-16 3:01 下午
  **/
 @Data
-public class ResourceList implements Serializable {
+public class ResourceList implements Serializable{
 
     private Long id;
     /**
@@ -41,6 +41,7 @@ public class ResourceList implements Serializable {
      */
     private String sourceUrl;
 
+    private Integer sort;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:dd",timezone = "GMT+8")
     private Date createTime;
 

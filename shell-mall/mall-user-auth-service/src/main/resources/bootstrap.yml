@@ -2,9 +2,6 @@ spring:
   #配置服务名称
   application:
       name: user-auth-service
-server:
-  port: 8600
-
 #本地环境
 ---
 spring:

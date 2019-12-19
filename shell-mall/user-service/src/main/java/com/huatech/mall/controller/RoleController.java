@@ -79,4 +79,13 @@ public class RoleController {
         return ResponseResult.success(role);
     }
 
+    @GetMapping(value = "/list")
+    @ApiOperation(value = "获取系统角色列表", notes = "获取系统角色列表")
+    public ResponseResult roles() {
+        log.info("====获取系统角色列表:=====");
+        List<Role> roles = roleService.findAll();
+        return ResponseResult.success(roles);
+    }
+
+
 }
