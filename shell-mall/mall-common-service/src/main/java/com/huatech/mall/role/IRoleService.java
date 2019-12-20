@@ -2,6 +2,7 @@ package com.huatech.mall.role;
 
 import com.huatech.mall.common.service.IBaseService;
 import com.huatech.mall.entity.role.Role;
+import com.huatech.mall.param.role.RoleGrantParam;
 import com.huatech.mall.param.role.RoleParam;
 import com.huatech.mall.res.role.RoleQuery;
 
@@ -23,9 +24,12 @@ public interface IRoleService extends IBaseService<Role, Long> {
      */
     List<RoleQuery> findRoleList(RoleParam param);
 
+
+
     /**
-     * 获取所有的角色
-     * @return
+     * 给角色授权
+     *
+     * @param grantParam
      */
-    List<Role> findAll();
+    void grant(RoleGrantParam grantParam);
 }

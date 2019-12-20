@@ -3,6 +3,7 @@ package com.huatech.mall.controller;
 import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.common.utils.BeanValidator;
 import com.huatech.mall.entity.role.Role;
+import com.huatech.mall.param.role.RoleGrantParam;
 import com.huatech.mall.param.role.RoleParam;
 import com.huatech.mall.res.role.RoleQuery;
 import com.huatech.mall.role.IRoleService;
@@ -85,6 +86,14 @@ public class RoleController {
         log.info("====获取系统角色列表:=====");
         List<Role> roles = roleService.findAll();
         return ResponseResult.success(roles);
+    }
+
+    @PostMapping(value = "/grant")
+    @ApiOperation(value = "为角色授权", notes = "为角色授权")
+    public ResponseResult grant(@RequestBody  RoleGrantParam grantParam) {
+        log.info("====为系统角色授权:=====");
+        roleService.grant(grantParam);
+        return ResponseResult.success();
     }
 
 

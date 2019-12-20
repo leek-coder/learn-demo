@@ -3,6 +3,7 @@ package com.huatech.mall.mapper.user;
 import com.huatech.mall.common.mapper.IBaseMapper;
 import com.huatech.mall.entity.user.User;
 import com.huatech.mall.param.user.UserParam;
+import com.huatech.mall.param.user.UserRoleParam;
 import com.huatech.mall.res.user.UserList;
 import com.huatech.mall.res.user.UserResourcesRes;
 import com.huatech.mall.res.user.UserRoleRes;
@@ -48,6 +49,34 @@ public interface UserMapper extends IBaseMapper<User, Long> {
      */
     UserRoleRes findUserRoles(Long userId);
 
+    /**
+     * 角色下所有资源列表
+     *
+     * @param roleId
+     * @return
+     */
     List<UserResourcesRes> findRoleResources(Long roleId);
+
+    /**
+     * 查找用户角色
+     *
+     * @param userId
+     * @return
+     */
+    UserRoleParam findUserRoleByUserId(Long userId);
+
+    /**
+     * 更新用户角色
+     * @param userRoleParam
+     * @return
+     */
+    int updateUserRoleByUserId(UserRoleParam userRoleParam);
+
+    /**
+     * 添加用户角色
+     * @param userRoleParam
+     * @return
+     */
+    int insertUserRole(UserRoleParam userRoleParam);
 
 }

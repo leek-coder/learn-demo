@@ -76,4 +76,6 @@ public class UserList implements Serializable {
      */
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date updateTime;
+
+    private String roleName;
 }

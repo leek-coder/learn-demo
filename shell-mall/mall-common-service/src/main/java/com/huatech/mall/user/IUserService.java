@@ -4,6 +4,7 @@ import com.huatech.mall.common.service.IBaseService;
 import com.huatech.mall.entity.user.User;
 import com.huatech.mall.param.user.LoginParam;
 import com.huatech.mall.param.user.UserParam;
+import com.huatech.mall.param.user.UserRoleParam;
 import com.huatech.mall.res.user.*;
 
 import java.util.List;
@@ -56,4 +57,10 @@ public interface IUserService extends IBaseService<User, Long> {
      * @param id
      */
     void recovery(Long id);
+
+    /**
+     * 给用户分配角色
+     * @param userRoleParam
+     */
+    void grantRole(UserRoleParam userRoleParam);
 }

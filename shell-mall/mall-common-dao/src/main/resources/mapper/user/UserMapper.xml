@@ -169,10 +169,12 @@
     <select id="findUserList" parameterType="com.huatech.mall.param.user.UserParam"
             resultType="com.huatech.mall.res.user.UserList">
         select
-        id, user_name userName, nick_name nickName, sex, telephone, delete_status status,
-        email, create_time createTime
-        from t_user
-
+        u.id, u.user_name userName, u.nick_name nickName, u.sex, u.telephone, u.delete_status status,
+        u.email, u.create_time createTime,r.name roleName
+        from t_user u left join t_user_role tu
+        on u.id = tu.u_id
+        left join t_role r
+        on tu.r_id = r.id
         <where>
 
             <if test="username != null and username!=''">
@@ -209,5 +211,26 @@
         and rs.r_id = #{roleId}
         order by sort asc
     </select>
+
+    <select id="findUserRoleByUserId" parameterType="java.lang.Long"
+            resultType="com.huatech.mall.param.user.UserRoleParam">
+
+        select r_id rId , u_id uId
+        from t_user_role
+        where   u_id = #{uId}
+    </select>
+
+    <update id="updateUserRoleByUserId" parameterType="com.huatech.mall.param.user.UserRoleParam">
+        update t_user_role
+        set r_id = #{rId}
+        where u_id = #{uId}
+    </update>
+
+
+    <insert id="insertUserRole" parameterType="com.huatech.mall.param.user.UserRoleParam">
+        insert into t_user_role(u_id,r_id)
+        values(#{uId},#{rId})
+    </insert>
+
 
 </mapper>

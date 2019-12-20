@@ -4,6 +4,7 @@ import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.common.utils.BeanValidator;
 import com.huatech.mall.entity.user.User;
 import com.huatech.mall.param.user.UserParam;
+import com.huatech.mall.param.user.UserRoleParam;
 import com.huatech.mall.res.user.UserList;
 import com.huatech.mall.res.user.UserQueryRes;
 import com.huatech.mall.user.IUserService;
@@ -91,6 +92,16 @@ public class UserManagementController {
         userService.insert(user);
         return ResponseResult.success();
     }
+
+
+    @GetMapping(value = "/grant")
+    @ApiOperation(value = "用户分配角色", notes = "用户分配角色", tags = "用户分配角色")
+    public ResponseResult grant(UserRoleParam userRoleParam) {
+        log.info("=========用户分配角色:{}", userRoleParam.toString());
+         userService.grantRole(userRoleParam);
+        return ResponseResult.success();
+    }
+
 
 
 }

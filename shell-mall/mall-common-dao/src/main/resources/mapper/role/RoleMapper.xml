@@ -161,4 +161,18 @@
         delete from t_role_resource
         where r_id = #{roleId}
     </delete>
+
+    <!--根据角色id，删除所有资源-->
+    <delete id="deleteResourceByRoleId" parameterType="java.lang.Integer" >
+
+        delete  from t_role_resource
+        where
+         r_id = #{roleId}
+    </delete>
+
+    <!--给角色添加资源权限-->
+    <insert id="insertRoleGrants" parameterType="java.util.Map">
+        insert into  t_role_resource(r_id,s_id)
+        values(#{rId},#{sId})
+    </insert>
 </mapper>

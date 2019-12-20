@@ -13,13 +13,16 @@ import com.huatech.mall.common.mapper.IBaseMapper;
 import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.common.service.impl.BaseServiceImpl;
 import com.huatech.mall.common.utils.*;
+import com.huatech.mall.entity.role.Role;
 import com.huatech.mall.entity.user.User;
 import com.huatech.mall.mapper.user.UserMapper;
 import com.huatech.mall.param.user.LoginParam;
 import com.huatech.mall.param.user.UserParam;
+import com.huatech.mall.param.user.UserRoleParam;
 import com.huatech.mall.remote.user.IAuthUserFeignService;
 import com.huatech.mall.remote.user.request.UserTokenReq;
 import com.huatech.mall.res.user.*;
+import com.huatech.mall.role.IRoleService;
 import com.huatech.mall.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,6 +45,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
 
     @Autowired
     private IAuthUserFeignService authUserFeignService;
+
+    @Autowired
+    private IRoleService roleService;
 
     @Autowired
     private ICacheService cacheService;
@@ -186,6 +192,33 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
         }
         user.setDeleteStatus(ApiBaseConstants.NOT_DELETE_STATUS);
         updateByPrimaryKey(user);
+    }
+
+    /**
+     * 给用户分配角色
+     *
+     * @param userRoleParam
+     */
+    @Override
+    public void grantRole(UserRoleParam userRoleParam) {
+
+        User user = find(userRoleParam.getUId());
+        if (null == user) {
+            throw new ExceptionCustomer(ApiBaseErrorCore.USER_NOT_EXISTS);
+        }
+        Role role = roleService.find(userRoleParam.getRId());
+        if (role == null) {
+            throw new ExceptionCustomer(ApiBaseErrorCore.ROLE_NOT_EXISTS);
+        }
+        UserRoleParam roleParam = userMapper.findUserRoleByUserId(userRoleParam.getUId());
+        if (roleParam != null) {
+            roleParam.setRId(userRoleParam.getRId());
+            userMapper.updateUserRoleByUserId(roleParam);
+            return;
+        }
+
+        userMapper.insertUserRole(userRoleParam);
+
     }
 
 

@@ -4,6 +4,7 @@ import com.huatech.mall.common.mapper.IBaseMapper;
 import com.huatech.mall.entity.role.Role;
 import com.huatech.mall.param.role.RoleParam;
 import com.huatech.mall.res.role.RoleQuery;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -54,8 +55,26 @@ public interface RoleMapper extends IBaseMapper<Role, Long> {
 
     /**
      * 查询所有的角色
+     *
      * @return
      */
     List<Role> findAll();
+
+    /**
+     * 根据角色id，删除角色下的权限
+     *
+     * @param roleId
+     * @return
+     */
+    int deleteResourceByRoleId(Long roleId);
+
+    /**
+     * 给角色授权
+     *
+     * @param rId
+     * @param sId
+     * @return
+     */
+    int insertRoleGrants(@Param("rId") Long rId, @Param("sId") Long sId);
 
 }

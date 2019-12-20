@@ -9,6 +9,7 @@ import com.huatech.mall.common.service.impl.BaseServiceImpl;
 import com.huatech.mall.entity.role.Role;
 import com.huatech.mall.mapper.resource.ResourceMapper;
 import com.huatech.mall.mapper.role.RoleMapper;
+import com.huatech.mall.param.role.RoleGrantParam;
 import com.huatech.mall.param.role.RoleParam;
 import com.huatech.mall.res.role.ResourceQuery;
 import com.huatech.mall.res.role.RoleQuery;
@@ -18,10 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 角色service实现类
@@ -71,6 +71,29 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements IRol
         });
 
         return roles;
+    }
+
+    /**
+     * 给角色授权
+     *
+     * @param grantParam
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void grant(RoleGrantParam grantParam) {
+        Role role = roleMapper.selectByPrimaryKey(grantParam.getRoleId());
+        if (role == null) {
+            throw new ExceptionCustomer(ApiBaseErrorCore.ROLE_NOT_EXISTS);
+        }
+        //先删除该角色之前所有的权限
+        if (CollectionUtils.isNotEmpty(grantParam.getResIds())) {
+            roleMapper.deleteRoleResourceByRoleId(role.getId());
+            grantParam.getResIds().forEach(e -> {
+                roleMapper.insertRoleGrants(role.getId(), e);
+            });
+        }
+
+
     }
 
     /**
