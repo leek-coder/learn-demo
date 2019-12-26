@@ -216,7 +216,6 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
             userMapper.updateUserRoleByUserId(roleParam);
             return;
         }
-
         userMapper.insertUserRole(userRoleParam);
 
     }
@@ -229,12 +228,16 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
      * @return
      */
     @Override
-    public int delete(Long userId) {
+    public void delete(Long userId, Long loginUserId) {
+
+        if (userId.equals(loginUserId)) {
+            throw new ExceptionCustomer(ApiBaseErrorCore.DELETE_NOT_ALLOWED);
+        }
         User user = find(userId);
         if (null == user) {
             throw new ExceptionCustomer(ApiBaseErrorCore.USER_NOT_EXISTS);
         }
         user.setDeleteStatus(ApiBaseConstants.HAD_DELETE_STATUS);
-        return updateByPrimaryKey(user);
+        updateByPrimaryKey(user);
     }
 }

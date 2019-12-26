@@ -1,5 +1,7 @@
 package com.huatech.mall.controller;
 
+import com.huatech.mall.common.base.BaseController;
+import com.huatech.mall.common.jwt.JwtUser;
 import com.huatech.mall.common.response.ResponseResult;
 import com.huatech.mall.common.utils.BeanValidator;
 import com.huatech.mall.entity.user.User;
@@ -14,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -28,7 +31,7 @@ import java.util.List;
 @RequestMapping(value = "/web/user")
 @Slf4j
 @Api(value = "web用户管理", tags = "web用户操作接口")
-public class UserManagementController {
+public class UserManagementController extends BaseController {
 
 
     @Autowired
@@ -36,7 +39,7 @@ public class UserManagementController {
 
     @PostMapping(value = "/save")
     @ApiOperation(value = "创建用户", notes = "根据user对象创建用户")
-    public ResponseResult save(@Valid @RequestBody User user) {
+    public ResponseResult save(@RequestBody User user) {
         //验证参数的合法性
         BeanValidator.check(user);
         log.info("======创建用户请求参数====={}", user.toString());
@@ -53,9 +56,10 @@ public class UserManagementController {
      */
     @GetMapping(value = "/delete/{id}")
     @ApiOperation(value = "删除用户", notes = "根据用户id标示删除用户")
-    public ResponseResult delete(@PathVariable("id") Long id) {
+    public ResponseResult delete(@PathVariable("id") Long id, HttpServletRequest httpServletRequest) {
         log.info("====删除用户请求参数:{}=====", id);
-        userService.delete(id);
+        JwtUser user = getUserInfo(httpServletRequest);
+        userService.delete(id,user.getId());
         return ResponseResult.success();
     }
 

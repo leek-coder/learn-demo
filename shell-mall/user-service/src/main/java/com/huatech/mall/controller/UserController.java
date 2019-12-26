@@ -48,7 +48,7 @@ public class UserController extends BaseController {
 
     @PostMapping(value = "/login")
     @ApiOperation(value = "用户登陆", notes = "用户登陆")
-    public ResponseResult login(@Valid @RequestBody LoginParam loginParam) {
+    public ResponseResult login(@RequestBody LoginParam loginParam) {
         log.info("=========用户登陆:{}", loginParam.toString());
         LoginUserRes login = userService.login(loginParam);
         return ResponseResult.success(login);
@@ -87,6 +87,8 @@ public class UserController extends BaseController {
         List<MenusRes> roleMenus = userService.findRoleMenus(userId);
         return ResponseResult.success(roleMenus);
     }
+
+
 
 
 }

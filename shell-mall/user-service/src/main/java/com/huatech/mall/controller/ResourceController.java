@@ -34,7 +34,7 @@ public class ResourceController {
 
     @PostMapping(value = "/save")
     @ApiOperation(value = "创建资源", notes = "根据user对象创建资源")
-    public ResponseResult save(@Valid @RequestBody Resource resource) {
+    public ResponseResult save(@RequestBody Resource resource) {
         //验证参数的合法性
         BeanValidator.check(resource);
         log.info("=========创建资源:{}", resource.toString());

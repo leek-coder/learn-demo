@@ -96,7 +96,6 @@ public class ControllerAspect {
             }
         }
         Long endTime = System.currentTimeMillis();
-        logger.info("执行结束时间为:{}", endTime);
         logger.info("anyAPi接口响应参数:{}", responseResult.toString());
         Log log = new Log();
         //ip地址

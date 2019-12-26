@@ -63,4 +63,11 @@ public interface IUserService extends IBaseService<User, Long> {
      * @param userRoleParam
      */
     void grantRole(UserRoleParam userRoleParam);
+
+    /**
+     * 删除用户
+     * @param id
+     * @param loginUserId
+     */
+    void delete(Long id, Long loginUserId);
 }

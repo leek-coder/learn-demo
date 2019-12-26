@@ -34,7 +34,7 @@ public class RoleController {
 
     @PostMapping(value = "/save")
     @ApiOperation(value = "创建角色", notes = "根据user对象创建角色")
-    public ResponseResult save(@Valid @RequestBody Role role) {
+    public ResponseResult save(@RequestBody Role role) {
         //验证参数的合法性
         BeanValidator.check(role);
         //插入系统角色

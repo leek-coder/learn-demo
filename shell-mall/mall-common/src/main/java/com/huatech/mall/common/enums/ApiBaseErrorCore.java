@@ -13,6 +13,7 @@ public enum ApiBaseErrorCore {
     USER_EXISTS("用户已存在", 1001),
     PASSWORD_ERROR("密码错误", 1002),
     PHONE_EXISTS("手机号已存在", 1003),
+    DELETE_NOT_ALLOWED("当前用户不可以删除自己", 1004),
 
 
     ROLE_NOT_EXISTS("角色不存在", 2000),
@@ -30,6 +31,10 @@ public enum ApiBaseErrorCore {
     REMOTE_SERVICE_FAIL("远程服务调用失败",5000),
     JSON_TRANS_ERROR("参数转化异常",5001),
     AUTH_REMOTE_FAIL("远程调用鉴权服务失败",5002),
+
+
+    CATEGORY_NOT_EXISTS("类目不存在", 6001),
+    CATEGORY_EXISTS("类目不存在", 6002),
 
     ;
 
