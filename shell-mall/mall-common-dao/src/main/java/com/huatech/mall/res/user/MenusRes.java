@@ -1,5 +1,6 @@
 package com.huatech.mall.res.user;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
  * @date 2019-12-13 5:41 下午
  **/
 @Data
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class MenusRes {
 
     private String nodeId;

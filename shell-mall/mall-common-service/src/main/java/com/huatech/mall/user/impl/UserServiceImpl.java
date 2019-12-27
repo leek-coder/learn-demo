@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import com.huatech.mall.common.constants.ApiBaseConstants;
 import com.huatech.mall.common.enums.ApiBaseErrorCore;
 import com.huatech.mall.common.exception.ExceptionCustomer;
+import com.huatech.mall.common.jwt.JwtUser;
 import com.huatech.mall.common.jwt.Token;
 import com.huatech.mall.common.mapper.IBaseMapper;
 import com.huatech.mall.common.response.ResponseResult;
@@ -60,6 +61,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
         return this.userMapper;
     }
 
+    private static final String USER = "leek";
 
     /**
      * 新增&&更新用户
@@ -206,6 +208,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
         if (null == user) {
             throw new ExceptionCustomer(ApiBaseErrorCore.USER_NOT_EXISTS);
         }
+        if (user.getUserName().equals(USER)) {
+            throw new ExceptionCustomer(ApiBaseErrorCore.ROLE_NOT_ALLOWED);
+        }
         Role role = roleService.find(userRoleParam.getRId());
         if (role == null) {
             throw new ExceptionCustomer(ApiBaseErrorCore.ROLE_NOT_EXISTS);
@@ -228,16 +233,19 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements IUse
      * @return
      */
     @Override
-    public void delete(Long userId, Long loginUserId) {
+    public void delete(Long userId, JwtUser user) {
 
-        if (userId.equals(loginUserId)) {
+        if (userId.equals(user.getId())) {
             throw new ExceptionCustomer(ApiBaseErrorCore.DELETE_NOT_ALLOWED);
         }
-        User user = find(userId);
-        if (null == user) {
+        if (USER.equals(user.getUserName())) {
+            throw new ExceptionCustomer(ApiBaseErrorCore.EXPERIENCE_NOT_ALLOWED);
+        }
+        User user_db = find(userId);
+        if (null == user_db) {
             throw new ExceptionCustomer(ApiBaseErrorCore.USER_NOT_EXISTS);
         }
-        user.setDeleteStatus(ApiBaseConstants.HAD_DELETE_STATUS);
-        updateByPrimaryKey(user);
+        user_db.setDeleteStatus(ApiBaseConstants.HAD_DELETE_STATUS);
+        updateByPrimaryKey(user_db);
     }
 }

@@ -6,10 +6,10 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- *  
- * 表:t_category 
- * @author like 
- * @date 2019-12-21 
+ * 表:t_category
+ *
+ * @author like
+ * @date 2019-12-21
  */
 @Data
 @Builder
@@ -48,13 +48,13 @@ public class Category {
      * 分类层级0:顶级1:二级2:三级
      * 表字段:level
      */
-    private String level;
+    private Integer level;
 
     /**
      * 状态（1：正常    2：删除）
      * 表字段:status
      */
-    private String status;
+    private Integer status;
 
     /**
      * 分类描述
@@ -63,19 +63,18 @@ public class Category {
     private String description;
 
     /**
-     * 
      * 表字段:create_time
      */
     private Date createTime;
 
     /**
-     * 
      * 表字段:update_time
      */
     private Date updateTime;
 
     /**
      * 获取类别主键
+     *
      * @return id Integer
      */
     public Integer getId() {
@@ -84,6 +83,7 @@ public class Category {
 
     /**
      * 设置类别主键
+     *
      * @param id 类别主键
      */
     public void setId(Integer id) {
@@ -92,6 +92,7 @@ public class Category {
 
     /**
      * 获取商品类目编号
+     *
      * @return categoryNo String
      */
     public String getCategoryNo() {
@@ -100,6 +101,7 @@ public class Category {
 
     /**
      * 设置商品类目编号
+     *
      * @param categoryNo 商品类目编号
      */
     public void setCategoryNo(String categoryNo) {
@@ -108,6 +110,7 @@ public class Category {
 
     /**
      * 获取父节点
+     *
      * @return parentId Long
      */
     public Long getParentId() {
@@ -116,6 +119,7 @@ public class Category {
 
     /**
      * 设置父节点
+     *
      * @param parentId 父节点
      */
     public void setParentId(Long parentId) {
@@ -124,6 +128,7 @@ public class Category {
 
     /**
      * 获取类目名称
+     *
      * @return name String
      */
     public String getName() {
@@ -132,6 +137,7 @@ public class Category {
 
     /**
      * 设置类目名称
+     *
      * @param name 类目名称
      */
     public void setName(String name) {
@@ -140,6 +146,7 @@ public class Category {
 
     /**
      * 获取分类图片
+     *
      * @return imgUrl String
      */
     public String getImgUrl() {
@@ -148,6 +155,7 @@ public class Category {
 
     /**
      * 设置分类图片
+     *
      * @param imgUrl 分类图片
      */
     public void setImgUrl(String imgUrl) {
@@ -156,38 +164,43 @@ public class Category {
 
     /**
      * 获取分类层级0:顶级1:二级2:三级
+     *
      * @return level String
      */
-    public String getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
     /**
      * 设置分类层级0:顶级1:二级2:三级
+     *
      * @param level 分类层级0:顶级1:二级2:三级
      */
-    public void setLevel(String level) {
-        this.level = level == null ? null : level.trim();
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     /**
      * 获取状态（1：正常    2：删除）
+     *
      * @return status String
      */
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
     /**
      * 设置状态（1：正常    2：删除）
+     *
      * @param status 状态（1：正常    2：删除）
      */
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     /**
      * 获取分类描述
+     *
      * @return description String
      */
     public String getDescription() {
@@ -196,6 +209,7 @@ public class Category {
 
     /**
      * 设置分类描述
+     *
      * @param description 分类描述
      */
     public void setDescription(String description) {
@@ -204,6 +218,7 @@ public class Category {
 
     /**
      * 获取
+     *
      * @return createTime Date
      */
     public Date getCreateTime() {
@@ -212,7 +227,8 @@ public class Category {
 
     /**
      * 设置
-     * @param createTime 
+     *
+     * @param createTime
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
@@ -220,6 +236,7 @@ public class Category {
 
     /**
      * 获取
+     *
      * @return updateTime Date
      */
     public Date getUpdateTime() {
@@ -228,7 +245,8 @@ public class Category {
 
     /**
      * 设置
-     * @param updateTime 
+     *
+     * @param updateTime
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;

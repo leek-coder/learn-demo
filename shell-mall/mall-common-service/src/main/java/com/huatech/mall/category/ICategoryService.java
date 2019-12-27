@@ -2,7 +2,12 @@ package com.huatech.mall.category;
 
 import com.huatech.mall.common.service.IBaseService;
 import com.huatech.mall.entity.category.Category;
+import com.huatech.mall.param.category.CategoryListParam;
 import com.huatech.mall.param.category.CategoryParam;
+import com.huatech.mall.res.category.CategoryQueryRes;
+import com.huatech.mall.res.user.MenusRes;
+
+import java.util.List;
 
 
 /**
@@ -37,4 +42,17 @@ public interface ICategoryService extends IBaseService<Category, Integer> {
      */
     public Category findCategoryByName(String categoryName);
 
+    /**
+     * 获取所有未删除的分类列表
+     * @param level
+     * @return
+     */
+    public List<MenusRes> findCategoryTree(Integer level);
+
+    /**
+     * 查询所有分类数据
+     * @param categoryParam
+     * @return
+     */
+    CategoryQueryRes findCategoryList(CategoryListParam categoryParam);
 }

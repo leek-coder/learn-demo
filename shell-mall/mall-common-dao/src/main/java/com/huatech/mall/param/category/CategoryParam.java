@@ -34,7 +34,6 @@ public class CategoryParam implements Serializable {
     /**
      * 类目图片
      */
-    @NotBlank(message = "请上传图片")
     private String imgUrl;
 
     /**
@@ -49,7 +48,7 @@ public class CategoryParam implements Serializable {
     /**
      * 类目级别
      */
-    private String level;
+    private Integer level;
 
 
 }

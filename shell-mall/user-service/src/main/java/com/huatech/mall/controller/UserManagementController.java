@@ -59,7 +59,7 @@ public class UserManagementController extends BaseController {
     public ResponseResult delete(@PathVariable("id") Long id, HttpServletRequest httpServletRequest) {
         log.info("====删除用户请求参数:{}=====", id);
         JwtUser user = getUserInfo(httpServletRequest);
-        userService.delete(id,user.getId());
+        userService.delete(id,user);
         return ResponseResult.success();
     }
 

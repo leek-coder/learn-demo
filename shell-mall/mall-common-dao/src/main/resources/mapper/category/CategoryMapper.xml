@@ -7,8 +7,8 @@
         <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
-        <result column="level" jdbcType="CHAR" property="level"/>
-        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
@@ -33,7 +33,7 @@
       description, create_time, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{categoryNo,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, 
-      #{name,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{level,jdbcType=CHAR}, #{status,jdbcType=CHAR}, 
+      #{name,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
       #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -88,10 +88,10 @@
                 #{imgUrl,jdbcType=VARCHAR},
             </if>
             <if test="level != null">
-                #{level,jdbcType=CHAR},
+                #{level,jdbcType=INTEGER},
             </if>
             <if test="status != null">
-                #{status,jdbcType=CHAR},
+                #{status,jdbcType=INTEGER},
             </if>
             <if test="description != null">
                 #{description,jdbcType=VARCHAR},
@@ -111,8 +111,8 @@
       parent_id = #{parentId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       img_url = #{imgUrl,jdbcType=VARCHAR},
-      level = #{level,jdbcType=CHAR},
-      status = #{status,jdbcType=CHAR},
+      level = #{level,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
@@ -126,11 +126,38 @@
         <include refid="Base_Column_List"/>
         from t_category
         <where>
-            status = "0"
-            <if test="categoryName !=null and  categoryName !=''">
-                and name = #{categoryName}
-            </if>
+            status = 0
 
+            and name = #{categoryName}
         </where>
+    </select>
+
+    <select id="findCategoryList" parameterType="java.lang.Integer"
+            resultType="com.huatech.mall.res.category.CategoryList">
+
+      select id ,category_no categoryNo ,parent_id parentId, name,img_url imgUrl,
+      level
+      from t_category
+      where status = 0
+      and level &lt;= #{level}
+
+    </select>
+
+    <select id="findCategoryListByPage" resultType="com.huatech.mall.res.category.CategoryQuery"
+            parameterType="com.huatech.mall.param.category.CategoryListParam"
+    >
+
+        select
+        t.name,t.id, t.level,t.status,t.img_url imgUrl
+        from t_category t
+        <where>
+            <if test="level !=null">
+                t.level = #{level}
+            </if>
+            <if test="parentId !=null">
+                and t.parent_id = #{parentId}
+            </if>
+        </where>
+
     </select>
 </mapper>

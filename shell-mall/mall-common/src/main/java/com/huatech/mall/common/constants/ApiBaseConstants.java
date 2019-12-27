@@ -64,12 +64,12 @@ public class ApiBaseConstants {
     /**
      * 分类 正常 0
      */
-    public static final String CATEGORY_NORMAL_STATUS = "0";
+    public static final Integer CATEGORY_NORMAL_STATUS = 0;
 
     /**
      * 分类 删除1
      */
-    public static final String CATEGORY_DELETE_STATUS = "1";
+    public static final Integer CATEGORY_DELETE_STATUS = 1;
 
 
 }

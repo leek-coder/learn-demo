@@ -1,5 +1,6 @@
 package com.huatech.mall.user;
 
+import com.huatech.mall.common.jwt.JwtUser;
 import com.huatech.mall.common.service.IBaseService;
 import com.huatech.mall.entity.user.User;
 import com.huatech.mall.param.user.LoginParam;
@@ -67,7 +68,7 @@ public interface IUserService extends IBaseService<User, Long> {
     /**
      * 删除用户
      * @param id
-     * @param loginUserId
+     * @param user
      */
-    void delete(Long id, Long loginUserId);
+    void delete(Long id, JwtUser user);
 }

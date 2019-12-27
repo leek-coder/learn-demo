@@ -14,6 +14,8 @@ public enum ApiBaseErrorCore {
     PASSWORD_ERROR("密码错误", 1002),
     PHONE_EXISTS("手机号已存在", 1003),
     DELETE_NOT_ALLOWED("当前用户不可以删除自己", 1004),
+    EXPERIENCE_NOT_ALLOWED("体验用户不可被删除", 1005),
+    ROLE_NOT_ALLOWED("该用户不允许被修改角色", 1006),
 
 
     ROLE_NOT_EXISTS("角色不存在", 2000),
@@ -35,6 +37,7 @@ public enum ApiBaseErrorCore {
 
     CATEGORY_NOT_EXISTS("类目不存在", 6001),
     CATEGORY_EXISTS("类目不存在", 6002),
+    REQUIRE_UPLOAD_IMAGE("三级分类需要上传图片", 6003),
 
     ;
 
