@@ -126,10 +126,11 @@ public class CategoryServiceImpl extends BaseServiceImpl<Category, Integer> impl
             list.add(categoryRes);
         });
         Tree tree = new Tree(list);
-        List<TreeNode> tree1 = tree.getTree();
+//        List<TreeNode> tree1 = tree.getTree();
+        List<TreeNode> root = tree.getRoot();
         SimplePropertyPreFilter filter = new SimplePropertyPreFilter();
         filter.getExcludes().add("parent");
-        List<MenusRes> cateTrees = JSONArray.parseArray(JSONObject.toJSONString(tree1, filter), MenusRes.class);
+        List<MenusRes> cateTrees = JSONArray.parseArray(JSONObject.toJSONString(root, filter), MenusRes.class);
         return cateTrees.stream().sorted(Comparator.comparing(MenusRes::getOrderNum)).collect(Collectors.toList());
     }
 

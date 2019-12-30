@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huatech.mall.mapper.product.ProductBrandMapper">
+    <resultMap id="BaseResultMap" type="com.huatech.mall.entity.product.ProductBrand">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="first_letter" jdbcType="CHAR" property="firstLetter"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="logo" jdbcType="VARCHAR" property="logo"/>
+        <result column="big_pic" jdbcType="VARCHAR" property="bigPic"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, first_letter, sort, status, logo, big_pic, description, create_time, update_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_product_brand
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_product_brand
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.huatech.mall.entity.product.ProductBrand">
+    insert into t_product_brand (id, name, first_letter, 
+      sort, status, logo, big_pic, 
+      description, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{firstLetter,jdbcType=CHAR}, 
+      #{sort,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{logo,jdbcType=VARCHAR}, #{bigPic,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.huatech.mall.entity.product.ProductBrand">
+        insert into t_product_brand
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="firstLetter != null">
+                first_letter,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="logo != null">
+                logo,
+            </if>
+            <if test="bigPic != null">
+                big_pic,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="firstLetter != null">
+                #{firstLetter,jdbcType=CHAR},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="logo != null">
+                #{logo,jdbcType=VARCHAR},
+            </if>
+            <if test="bigPic != null">
+                #{bigPic,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.huatech.mall.entity.product.ProductBrand">
+    update t_product_brand
+    set name = #{name,jdbcType=VARCHAR},
+      first_letter = #{firstLetter,jdbcType=CHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      big_pic = #{bigPic,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="findProductBrandByName" resultType="java.lang.String" resultMap="BaseResultMap"
+    >
+
+        select
+        <include refid="Base_Column_List"/>
+        from t_product_brand
+
+        <where>
+            name = #{name}
+            and status = 0
+        </where>
+
+    </select>
+
+    <select id="findProductBrandList" resultType="com.huatech.mall.res.product.ProductBrandList">
+      select   id, name, first_letter firstLetter,
+      sort, status, logo, big_pic bigPic,
+      description, create_time createTime
+      from  t_product_brand
+
+    </select>
+</mapper>

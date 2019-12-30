@@ -39,6 +39,9 @@ public enum ApiBaseErrorCore {
     CATEGORY_EXISTS("类目不存在", 6002),
     REQUIRE_UPLOAD_IMAGE("三级分类需要上传图片", 6003),
 
+
+    PRODUCT_BRAND_NOT_EXISTS("商品品牌不存在", 7001),
+    PRODUCT_BRAND_EXISTS("商品品牌已存在", 7002),
     ;
 
 
