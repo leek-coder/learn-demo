@@ -6,7 +6,6 @@ import com.huatech.mall.param.product.ProductBrandParam;
 import com.huatech.mall.param.product.ProductBrandQueryParam;
 import com.huatech.mall.res.product.ProductBrandQueryRes;
 
-import java.util.List;
 
 /**
  * 商品品牌service

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huatech.mall.mapper.product.ProductAttributeCategoryMapper">
+    <resultMap id="BaseResultMap" type="com.huatech.mall.entity.product.ProductAttributeCategory">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="attribute_count" jdbcType="INTEGER" property="attributeCount"/>
+        <result column="param_count" jdbcType="INTEGER" property="paramCount"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, attribute_count, param_count, create_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_product_attribute_category
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_product_attribute_category
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.huatech.mall.entity.product.ProductAttributeCategory">
+    insert into t_product_attribute_category (id, name, attribute_count, 
+      param_count, create_time)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{attributeCount,jdbcType=INTEGER}, 
+      #{paramCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.huatech.mall.entity.product.ProductAttributeCategory">
+        insert into t_product_attribute_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="attributeCount != null">
+                attribute_count,
+            </if>
+            <if test="paramCount != null">
+                param_count,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="attributeCount != null">
+                #{attributeCount,jdbcType=INTEGER},
+            </if>
+            <if test="paramCount != null">
+                #{paramCount,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.huatech.mall.entity.product.ProductAttributeCategory">
+    update t_product_attribute_category
+    set name = #{name,jdbcType=VARCHAR},
+      attribute_count = #{attributeCount,jdbcType=INTEGER},
+      param_count = #{paramCount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="findProductAttributeCategoryByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+
+        select
+        <include refid="Base_Column_List"></include>
+        from t_product_attribute_category
+        where name = #{name}
+    </select>
+
+    <select id="findProductAttributeCategorys" resultType="com.huatech.mall.res.product.ProductAttributeCategoryList">
+
+      select id,name,
+      IFNULL((select count(*) from t_product_attribute pa where pa.product_attribute_category_id = pac.id and type = 0 ),0) attributeCount,
+      IFNULL((select count(*) from t_product_attribute pa where pa.product_attribute_category_id = pac.id and type = 1 ),0) paramCount
+      from
+      t_product_attribute_category pac
+
+    </select>
+
+</mapper>
