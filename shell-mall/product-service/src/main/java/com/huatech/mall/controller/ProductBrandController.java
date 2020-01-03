@@ -1,7 +1,6 @@
 package com.huatech.mall.controller;
 
 import com.huatech.mall.common.response.ResponseResult;
-import com.huatech.mall.param.category.CategoryParam;
 import com.huatech.mall.param.product.ProductBrandParam;
 import com.huatech.mall.param.product.ProductBrandQueryParam;
 import com.huatech.mall.product.IProductBrandService;

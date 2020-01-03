@@ -156,8 +156,8 @@
                <!--enableDeleteByExample="false" enableSelectByExample="false"-->
                <!--selectByExampleQueryId="false">-->
         <!--</table>-->
-        <table tableName="t_product_attribute_category"
-               domainObjectName="ProductAttributeCategory"
+        <table tableName="t_product_attribute"
+               domainObjectName="ProductAttribute"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

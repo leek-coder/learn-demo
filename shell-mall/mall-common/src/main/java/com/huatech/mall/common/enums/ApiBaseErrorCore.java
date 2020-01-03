@@ -44,6 +44,8 @@ public enum ApiBaseErrorCore {
     PRODUCT_BRAND_EXISTS("商品品牌已存在", 7002),
     PRODUCT_ATTRIBUTE_CATEGORY_NOT_EXISTS("商品类型不存在", 7003),
     PRODUCT_ATTRIBUTE_CATEGORY_EXISTS("商品类型已存在", 7004),
+    PRODUCT_ATTRIBUTE_NOT_EXISTS("该商品类型属性不存在", 7005),
+    PRODUCT_ATTRIBUTE_EXISTS("该商品类型属性已存在", 7006),
     ;
 
 

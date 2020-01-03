@@ -1,5 +1,6 @@
 package com.huatech.mall.entity.product;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.util.Date;
  * @date 2019-12-31 
  */
 @Builder
+@AllArgsConstructor
 public class ProductAttributeCategory implements Serializable {
     /**
      * 主键id
