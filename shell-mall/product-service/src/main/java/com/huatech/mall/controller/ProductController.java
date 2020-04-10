@@ -110,6 +110,7 @@ public class ProductController {
      */
     @GetMapping(value = "/demo02")
     public ResponseResult demo2() {
+        log.info("我是leek");
         log.info("demo02");
         return ResponseResult.success("demo2");
     }
