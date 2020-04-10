@@ -111,10 +111,12 @@ public class ProductController {
      */
     @GetMapping(value = "/demo02")
     public ResponseResult demo2() {
-        log.info("java");
-        log.info("我是leek");
-        System.out.println("like");
+        System.out.println("dddd");
+        System.out.println("dddd");
+        System.out.println("dddd");
         Random random = new Random(100);
+        System.out.println("dddd");
+        System.out.println("dddd");
         return ResponseResult.success("demo2");
     }
 
