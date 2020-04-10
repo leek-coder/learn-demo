@@ -91,4 +91,16 @@ public class ProductController {
     }
 
 
+    /**
+     * 测试提交
+     *
+     * @return
+     */
+    @GetMapping(value = "/demo01")
+    public ResponseResult demo1() {
+        log.info("demo01");
+        return ResponseResult.success("demo1");
+    }
+
+
 }
