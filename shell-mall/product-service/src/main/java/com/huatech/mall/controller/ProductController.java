@@ -112,6 +112,7 @@ public class ProductController {
     public ResponseResult demo2() {
         log.info("我是leek");
         log.info("demo02");
+        log.info("lisi");
         log.info("测试冲突0002");
         return ResponseResult.success("demo2");
     }
