@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * 商品控制器类
@@ -112,9 +113,8 @@ public class ProductController {
     public ResponseResult demo2() {
         log.info("java");
         log.info("我是leek");
-        log.info("demo02");
-        log.info("lisi");
-        log.info("测试冲突0002");
+        System.out.println("like");
+        Random random = new Random(100);
         return ResponseResult.success("demo2");
     }
 
